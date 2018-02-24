@@ -1,0 +1,511 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{64D071C6-FA5B-483C-8858-0EBFDAAFC19C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>LabDesk</RootNamespace>
+    <AssemblyName>LabDesk</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code\Base\ButtonUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Base\ButtonUI.Designer.cs">
+      <DependentUpon>ButtonUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Base\CheckBoxUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Base\CheckBoxUI.Designer.cs">
+      <DependentUpon>CheckBoxUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Base\FormPersonizable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Base\LabelUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Base\LabelUI.Designer.cs">
+      <DependentUpon>LabelUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Base\PanelSesionUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Base\PanelSesionUI.Designer.cs">
+      <DependentUpon>PanelSesionUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Base\PanelUIControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Base\PanelUIControl.Designer.cs">
+      <DependentUpon>PanelUIControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Base\TextBoxUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Base\TextBoxUI.Designer.cs">
+      <DependentUpon>TextBoxUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Medico\FormMedicoBuscar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Medico\FormMedicoBuscar.Designer.cs">
+      <DependentUpon>FormMedicoBuscar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Medico\PanelMedicoEditar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Medico\PanelMedicoEditar.Designer.cs">
+      <DependentUpon>PanelMedicoEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Medico\PanelMedicoNuevo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Medico\PanelMedicoNuevo.Designer.cs">
+      <DependentUpon>PanelMedicoNuevo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Medico\PanelMedicoPerfil.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Medico\PanelMedicoPerfil.Designer.cs">
+      <DependentUpon>PanelMedicoPerfil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Paciente\FormBuscarPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Paciente\FormBuscarPaciente.Designer.cs">
+      <DependentUpon>FormBuscarPaciente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Paciente\PanelPacienteEditar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Paciente\PanelPacienteEditar.Designer.cs">
+      <DependentUpon>PanelPacienteEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Paciente\PanelPacienteNuevo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Paciente\PanelPacienteNuevo.Designer.cs">
+      <DependentUpon>PanelPacienteNuevo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Paciente\PanelPacientePerfil.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Actors\Paciente\PanelPacientePerfil.Designer.cs">
+      <DependentUpon>PanelPacientePerfil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Exam\Editor\ExamenEditorContenedor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Exam\Editor\ExamenEditorFila.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Exam\Editor\ExamenEditorGrupo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Exam\Editor\ExamenEditorItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Exam\Editor\ItemFormInput.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Exam\Editor\ItemFormLista.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Exam\FormExamenEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Exam\FormExamenEditor.Designer.cs">
+      <DependentUpon>FormExamenEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Orden\FormBuscarOrden.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Orden\FormBuscarOrden.Designer.cs">
+      <DependentUpon>FormBuscarOrden.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Orden\FormOrdenBuscar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Orden\FormOrdenBuscar.Designer.cs">
+      <DependentUpon>FormOrdenBuscar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Orden\PanelOrdenEditar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Orden\PanelOrdenEditar.Designer.cs">
+      <DependentUpon>PanelOrdenEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Orden\PanelOrdenNuevo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Orden\PanelOrdenNuevo.Designer.cs">
+      <DependentUpon>PanelOrdenNuevo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Orden\PanelOrdenPerfil.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Orden\PanelOrdenPerfil.Designer.cs">
+      <DependentUpon>PanelOrdenPerfil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Prices\FormCopiarTarifario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Prices\FormCopiarTarifario.Designer.cs">
+      <DependentUpon>FormCopiarTarifario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Prices\FormCrearTarifario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Prices\FormCrearTarifario.Designer.cs">
+      <DependentUpon>FormCrearTarifario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Prices\FormTarifario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Prices\FormTarifario.Designer.cs">
+      <DependentUpon>FormTarifario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Prices\FormTarifarioNuevo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Prices\FormTarifarioNuevo.Designer.cs">
+      <DependentUpon>FormTarifarioNuevo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Prices\FormTarifarioTransferencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Laboratory\Prices\FormTarifarioTransferencia.Designer.cs">
+      <DependentUpon>FormTarifarioTransferencia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\Panels\ControlBienvenida.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\Panels\ControlBienvenida.Designer.cs">
+      <DependentUpon>ControlBienvenida.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\Panels\ControlContabilidad.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\Panels\ControlContabilidad.Designer.cs">
+      <DependentUpon>ControlContabilidad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\Panels\ControlExamen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\Panels\ControlExamen.Designer.cs">
+      <DependentUpon>ControlExamen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\Panels\ControlMedico.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\Panels\ControlMedico.Designer.cs">
+      <DependentUpon>ControlMedico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\Panels\ControlOrden.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\Panels\ControlOrden.Designer.cs">
+      <DependentUpon>ControlOrden.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\Panels\ControlPaciente.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\Panels\ControlPaciente.Designer.cs">
+      <DependentUpon>ControlPaciente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\FormInicioSesion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\FormInicioSesion.Designer.cs">
+      <DependentUpon>FormInicioSesion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\Loaders\FormCargando.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\Loaders\FormCargando.Designer.cs">
+      <DependentUpon>FormCargando.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\Loaders\PantallaDeCarga.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\Loaders\PantallaDeCarga.Designer.cs">
+      <DependentUpon>PantallaDeCarga.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\ManagementAccount\FormAutorizacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\ManagementAccount\FormAutorizacion.Designer.cs">
+      <DependentUpon>FormAutorizacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\ManagementAccount\FormCrearCuenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\ManagementAccount\FormCrearCuenta.Designer.cs">
+      <DependentUpon>FormCrearCuenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\ManagementAccount\FormModificarClave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\ManagementAccount\FormModificarClave.Designer.cs">
+      <DependentUpon>FormModificarClave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\ManagementAccount\FormModificarCuenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\ManagementAccount\FormModificarCuenta.Designer.cs">
+      <DependentUpon>FormModificarCuenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\ManagementAccount\FormRegistrarProfesional.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\ManagementAccount\FormRegistrarProfesional.Designer.cs">
+      <DependentUpon>FormRegistrarProfesional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\FormAcerca.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\FormAcerca.Designer.cs">
+      <DependentUpon>FormAcerca.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\Principal.Designer.cs">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\Settings\ConfiguracionGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\Settings\ConfiguracionGUI.Designer.cs">
+      <DependentUpon>ConfiguracionGUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\Settings\FormConfigServer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\Settings\FormConfigServer.Designer.cs">
+      <DependentUpon>FormConfigServer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Components\Main\Settings\Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Code\Components\Main\Settings\Test.Designer.cs">
+      <DependentUpon>Test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Forms\RecursosUI.Designer.cs">
+      <DependentUpon>RecursosUI.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Code\Forms\RecursosUIMensajes.Designer.cs">
+      <DependentUpon>RecursosUIMensajes.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Code\Forms\RecursosUIToolkit.Designer.cs">
+      <DependentUpon>RecursosUIToolkit.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Code\GestorSonido\RecursosSound.Designer.cs">
+      <DependentUpon>RecursosSound.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Code\GestorSonido\ReproductorSonido.cs" />
+    <Compile Include="Code\SistemaWinchanzao.cs" />
+    <Compile Include="Code\StyleManager\Decorator.cs" />
+    <Compile Include="Code\StyleManager\PaletaColor.cs" />
+    <Compile Include="Code\StyleManager\SliderPanel.cs" />
+    <Compile Include="Code\StyleManager\StyleUI.cs" />
+    <Compile Include="Code\StyleManager\StyleUIPalette.cs" />
+    <Compile Include="Code\StyleManager\StyleUIParameters.cs" />
+    <Compile Include="Code\SystemManager\ConfiguracionExamen.cs" />
+    <Compile Include="Code\SystemManager\ConfiguracionSystem.cs" />
+    <Compile Include="Code\SystemManager\FormMensaje.cs" />
+    <Compile Include="Code\SystemManager\SistemaControl.cs" />
+    <Compile Include="Opciones.Designer.cs">
+      <DependentUpon>Opciones.settings</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Code\Components\Actors\Medico\FormMedicoBuscar.resx">
+      <DependentUpon>FormMedicoBuscar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Actors\Medico\PanelMedicoEditar.resx">
+      <DependentUpon>PanelMedicoEditar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Actors\Medico\PanelMedicoNuevo.resx">
+      <DependentUpon>PanelMedicoNuevo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Actors\Medico\PanelMedicoPerfil.resx">
+      <DependentUpon>PanelMedicoPerfil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Actors\Paciente\FormBuscarPaciente.resx">
+      <DependentUpon>FormBuscarPaciente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Actors\Paciente\PanelPacienteNuevo.resx">
+      <DependentUpon>PanelPacienteNuevo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Actors\Paciente\PanelPacientePerfil.resx">
+      <DependentUpon>PanelPacientePerfil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Laboratory\Exam\FormExamenEditor.resx">
+      <DependentUpon>FormExamenEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Laboratory\Orden\FormBuscarOrden.resx">
+      <DependentUpon>FormBuscarOrden.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Laboratory\Prices\FormCopiarTarifario.resx">
+      <DependentUpon>FormCopiarTarifario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Laboratory\Prices\FormCrearTarifario.resx">
+      <DependentUpon>FormCrearTarifario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Laboratory\Prices\FormTarifario.resx">
+      <DependentUpon>FormTarifario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\Panels\ControlBienvenida.resx">
+      <DependentUpon>ControlBienvenida.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\Panels\ControlContabilidad.resx">
+      <DependentUpon>ControlContabilidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\Panels\ControlExamen.resx">
+      <DependentUpon>ControlExamen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\Panels\ControlMedico.resx">
+      <DependentUpon>ControlMedico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\Panels\ControlOrden.resx">
+      <DependentUpon>ControlOrden.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\Panels\ControlPaciente.resx">
+      <DependentUpon>ControlPaciente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\FormInicioSesion.resx">
+      <DependentUpon>FormInicioSesion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\Loaders\PantallaDeCarga.resx">
+      <DependentUpon>PantallaDeCarga.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\ManagementAccount\FormAutorizacion.resx">
+      <DependentUpon>FormAutorizacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\ManagementAccount\FormCrearCuenta.resx">
+      <DependentUpon>FormCrearCuenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\ManagementAccount\FormModificarClave.resx">
+      <DependentUpon>FormModificarClave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\ManagementAccount\FormModificarCuenta.resx">
+      <DependentUpon>FormModificarCuenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\ManagementAccount\FormRegistrarProfesional.resx">
+      <DependentUpon>FormRegistrarProfesional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\FormAcerca.resx">
+      <DependentUpon>FormAcerca.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\Principal.resx">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\Settings\FormConfigServer.resx">
+      <DependentUpon>FormConfigServer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Components\Main\Settings\Test.resx">
+      <DependentUpon>Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Forms\RecursosUI.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RecursosUI.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Forms\RecursosUIMensajes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RecursosUIMensajes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\Forms\RecursosUIToolkit.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RecursosUIToolkit.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Code\GestorSonido\RecursosSound.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RecursosSound.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Opciones.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Opciones.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EntityLab\EntityLab.csproj">
+      <Project>{d0d482fe-facb-4106-a8d2-206089b092ee}</Project>
+      <Name>EntityLab</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LabServices\LabServices.csproj">
+      <Project>{BE4F15A8-FBF2-4098-B965-DE81A222F828}</Project>
+      <Name>LabServices</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
