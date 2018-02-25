@@ -1,6 +1,6 @@
 # LabDesk v1.0.0
 
-LabDesk is a free information system software for analisis laboratories in low resources hospitals.
+LabDesk is a open information system software for analisis laboratories in low resources hospitals.
 Help us to make our world better! :)
 
 # Old but fine and useful architecture..
@@ -12,6 +12,8 @@ Based on layer's architecture, this is divided into three components to make the
 - Utilities Build 1000 (help tools)
 - LabDesk Build 1000 L3 (using Windows Forms) 
 - LabDesk Web (not avaible)
+
+Note: We are translating all software's lexical from spanish to english for a better comprehension.
 
 ## Client Requirements
 - Its necessary have .Net Framework 4.5.2 installed.
