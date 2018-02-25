@@ -1,6 +1,6 @@
 # LabDesk v1.0.0
 
-LabDesk is a open information system software for analisis laboratories in low resources hospitals.
+LabDesk is an open information system software for analisis laboratories in low resources hospitals.
 Help us to make our world better! :)
 
 # Old but fine and useful architecture..
@@ -17,10 +17,10 @@ Note: We are translating all software's lexical from spanish to english for a be
 
 ## Client Requirements
 - Its necessary have .Net Framework 4.5.2 installed.
-- Printer device (physical or virtual-PDF) made it default for report and result's printing.
+- Printer device (physical or virtual-PDF) made it default.
 
 ## Server Requirements 
-- Sql Server Database
+- Database Sql Server 2012 or later.
 - TCP/IP open configuration (only for remote connections)
 
 Best Regards!
