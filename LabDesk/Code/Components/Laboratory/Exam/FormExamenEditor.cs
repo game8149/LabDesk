@@ -1,8 +1,8 @@
-using EntityLab.Code.Hospital;
-using EntityLab.Code.Hospital.Analisis;
-using EntityLab.Code.Hospital.Analisis.Result;
-using EntityLab.Code.Management;
-using EntityLab.Code.Static;
+using Entity.Code.Hospital;
+using Entity.Code.Hospital.Analisis;
+using Entity.Code.Hospital.Analisis.Result;
+using Entity.Code.Management;
+using Entity.Code.Static;
 using LabDesk.Code.Base;
 using LabDesk.Code.Components.Laboratory.Exam.Editor;
 using LabDesk.Code.PresentationLayer.Controles.ComponentesExamen.ComponentesExamenEditor;
@@ -26,7 +26,7 @@ namespace LabDesk.Code.Components.Laboratory.Exam
         private DataTable tabla;
         private ExamenEditorContenedor panelActual;
         private ExamOrder orden;
-        private Paciente paciente;
+        private Patient paciente;
         private Dictionary<int, ExamResult> examenes;
         private int idExamenSelected = -1;
         private int indexRowSelected = -1;

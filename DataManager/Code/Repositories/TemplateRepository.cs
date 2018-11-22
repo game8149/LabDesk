@@ -6,9 +6,9 @@ using EntityLab.Code.Interfaces;
 
 namespace DataManager.Code.Repositories
 {
-    public class TemplateRepository : IRepositorySimpleRecord<Template, int>
+    public class TemplateRepository : IRepositorySimpleRecord<TemplateExam, int>
     {
-        public void Add(Template entity)
+        public void Add(TemplateExam entity)
         {
             throw new System.NotImplementedException();
         }
@@ -18,32 +18,32 @@ namespace DataManager.Code.Repositories
             throw new System.NotImplementedException();
         }
 
-        public Template Select(int id)
+        public TemplateExam Select(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public Template Select(FilterParameter[] parameters)
+        public TemplateExam Select(FilterParameter[] parameters)
         {
             throw new System.NotImplementedException();
         }
 
-        public IDictionary<int, Template> SelectDic()
+        public IDictionary<int, TemplateExam> SelectDic()
         {
             throw new System.NotImplementedException();
         }
 
-        public IDictionary<int, Template> SelectDic(FilterParameter[] parameters)
+        public IDictionary<int, TemplateExam> SelectDic(FilterParameter[] parameters)
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Template> SelectList()
+        public IEnumerable<TemplateExam> SelectList()
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Template> SelectList(FilterParameter[] parameters)
+        public IEnumerable<TemplateExam> SelectList(FilterParameter[] parameters)
         {
             throw new System.NotImplementedException();
         }
@@ -53,7 +53,7 @@ namespace DataManager.Code.Repositories
             throw new System.NotImplementedException();
         }
 
-        public void Update(Template entity)
+        public void Update(TemplateExam entity)
         {
             throw new System.NotImplementedException();
         }

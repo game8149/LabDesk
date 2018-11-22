@@ -1,17 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabDesk", "LabDesk\LabDesk.csproj", "{64D071C6-FA5B-483C-8858-0EBFDAAFC19C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityLab", "EntityLab\EntityLab.csproj", "{D0D482FE-FACB-4106-A8D2-206089B092EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity", "EntityLab\Entity.csproj", "{D0D482FE-FACB-4106-A8D2-206089B092EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{6A1FA5B1-21B9-481B-8EFE-7B6CCB765A40}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManager", "DataManager\DataManager.csproj", "{F2E3A6E0-94E9-4579-A29F-94C6C605EF14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabServices", "LabServices\LabServices.csproj", "{BE4F15A8-FBF2-4098-B965-DE81A222F828}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabDeskWPF", "LabDeskWPF\LabDeskWPF.csproj", "{2DFD550A-8606-4C29-999C-E20864C9D449}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{BE4F15A8-FBF2-4098-B965-DE81A222F828}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE4F15A8-FBF2-4098-B965-DE81A222F828}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE4F15A8-FBF2-4098-B965-DE81A222F828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DFD550A-8606-4C29-999C-E20864C9D449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DFD550A-8606-4C29-999C-E20864C9D449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DFD550A-8606-4C29-999C-E20864C9D449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DFD550A-8606-4C29-999C-E20864C9D449}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

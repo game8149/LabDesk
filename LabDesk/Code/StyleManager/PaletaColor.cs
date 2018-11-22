@@ -1,7 +1,7 @@
 using System.Drawing;
 
 
-namespace EntityLab.Code.Static
+namespace Entity.Code.Static
 {
     public class PaletaColor
     {

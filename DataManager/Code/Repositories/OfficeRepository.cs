@@ -1,6 +1,6 @@
 ﻿using DataManager.Recursos;
 using EntityLab.Code.Base;
-using EntityLab.Code.Hospital;
+using EntityLab.Code.Business;
 using EntityLab.Code.Interfaces;
 using System;
 using System.Collections.Generic;

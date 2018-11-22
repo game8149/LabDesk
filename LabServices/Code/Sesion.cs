@@ -1,5 +1,5 @@
 
-using EntityLab.Code.Management;
+using Entity.Code.Management;
 using System;
 
 namespace LogicLab.Code

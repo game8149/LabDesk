@@ -1,6 +1,6 @@
-using EntityLab.Code.Hospital;
-using EntityLab.Code.Hospital.Analisis;
-using EntityLab.Code.Static;
+using Entity.Code.Hospital;
+using Entity.Code.Hospital.Analisis;
+using Entity.Code.Static;
 using LabDesk.Code.Base;
 using LabDesk.Code.Components.Laboratory.Exam;
 using LabDesk.Code.StyleManager;
@@ -64,7 +64,7 @@ namespace LabDesk.Code.Components.Main.Panels
             foreach (ExamOrder orden2 in this.ordenes.Values)
             {
                 DataRow row = this.tabla.NewRow();
-                Paciente paciente2 = paciente.ObtenerPerfilPorId(orden2.IdPaciente);
+                Patient paciente2 = paciente.ObtenerPerfilPorId(orden2.IdPaciente);
                 row[0] = orden2.Id;
                 row[1] = paciente2.DocumentNumber;
                 string[] textArray1 = new string[] { paciente2.Names, " ", paciente2.FirstSurname, " ", paciente2.LastSurname };

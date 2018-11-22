@@ -1,7 +1,7 @@
 
 using DataManager.Code.Repositories;
-using EntityLab.Code.Hospital;
-using EntityLab.Code.Interfaces;
+using Entity.Code.Hospital;
+using Entity.Code.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -11,12 +11,12 @@ namespace MinLab.Code.LogicLayer.LogicaPaciente
 
     public class LogicaPaciente
     {
-        private IRepositorySimpleRecord<Paciente, int> repoPaciente = new PacienteRepository();
+        private IRepositorySimpleRecord<Patient, int> repoPaciente = new PatientRepository();
 
 
-        public bool ActualizarPaciente(Paciente pac)
+        public bool ActualizarPaciente(Patient pac)
         {
-            if (pac.Validar())
+            if (pac.Validate())
             {
                 repoPaciente.Update(pac);
                 return true;
@@ -24,9 +24,9 @@ namespace MinLab.Code.LogicLayer.LogicaPaciente
             return false;
         }
 
-        public bool CrearPaciente(Paciente pac)
+        public bool CrearPaciente(Patient pac)
         {
-            if (!pac.Validar())
+            if (!pac.Validate())
             {
                 return false;
             }
@@ -38,20 +38,20 @@ namespace MinLab.Code.LogicLayer.LogicaPaciente
             return true;
         }
 
-        public bool EliminarPaciente(Paciente pac) => 
+        public bool EliminarPaciente(Patient pac) => 
             repoPaciente.Delete(pac.Id);
 
 
-        public Paciente ObtenerPerfilPorDNI(string DNI) => 
+        public Patient ObtenerPerfilPorDNI(string DNI) => 
             repoPaciente.GetPacienteByDni(DNI);
 
-        public Dictionary<int, Paciente> ObtenerPerfilPorFiltro(string dni, string historia, string nombre, string apellidoP, string apellidoM) => 
+        public Dictionary<int, Patient> ObtenerPerfilPorFiltro(string dni, string historia, string nombre, string apellidoP, string apellidoM) => 
             repoPaciente.GetPacientesByFiltro(dni, historia, nombre, apellidoM, apellidoP);
 
-        public Paciente ObtenerPerfilPorHC(string HC) => 
+        public Patient ObtenerPerfilPorHC(string HC) => 
             repoPaciente.GetPacienteByHistoria(HC);
 
-        public Paciente ObtenerPerfilPorId(int id) => 
+        public Patient ObtenerPerfilPorId(int id) => 
             repoPaciente.GetPacienteById(id);
 
         

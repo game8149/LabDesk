@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Entity.Code.Base.Documentary;
+using System.ComponentModel.DataAnnotations;
 
-namespace EntityLab.Code.Location
+namespace Entity.Code.Location
 {
-    public class Ubigeo
+    public class Ubigeo : EntityDocument
     {
         [Key]
-        public string Code { get; set; }
+        public string Id { get; set; }
         public string Description { get; set; }
     }
 }

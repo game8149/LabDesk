@@ -1,8 +1,8 @@
 namespace LabDesk.Code.Components.Laboratory.Orden
 {
-    using EntityLab.Code.Hospital;
-    using EntityLab.Code.Hospital.Analisis;
-    using EntityLab.Code.Static;
+    using Entity.Code.Hospital;
+    using Entity.Code.Hospital.Analisis;
+    using Entity.Code.Static;
     using LabDesk.Code.Base;
     using LabDesk.Code.StyleManager;
     using MinLab.Code.LogicLayer.LogicaPaciente;
@@ -18,7 +18,7 @@ namespace LabDesk.Code.Components.Laboratory.Orden
         private BindingSource bindingSourcePaciente;
        
         private Dictionary<int, ExamOrder> diccionarioOrden;
-        private Dictionary<int, Paciente> diccionarioPaciente;
+        private Dictionary<int, Patient> diccionarioPaciente;
        
         private DataTable tablaOrden;
         private DataTable tablaPaciente;
@@ -59,7 +59,7 @@ namespace LabDesk.Code.Components.Laboratory.Orden
             base.SuspendLayout();
             foreach (int num in this.diccionarioPaciente.Keys)
             {
-                Paciente paciente2 = this.diccionarioPaciente[num];
+                Patient paciente2 = this.diccionarioPaciente[num];
                 DataRow row = this.tablaPaciente.NewRow();
                 row[0] = paciente2.Id;
                 row[1] = paciente2.DocumentNumber;
@@ -196,6 +196,6 @@ namespace LabDesk.Code.Components.Laboratory.Orden
 
         public  ExamOrder ExamOrder { get; set; }
 
-        public Paciente Perfil { get; set; }
+        public Patient Perfil { get; set; }
     }
 }

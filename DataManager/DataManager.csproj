@@ -40,19 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\CommandFactory.cs" />
     <Compile Include="Code\Repositories\AccountSecurityRepository.cs" />
-    <Compile Include="Code\Repositories\ReportRespository.cs" />
-    <Compile Include="Code\Repositories\SectorRepository.cs" />
-    <Compile Include="Code\Repositories\OfficeRepository.cs" />
+    <Compile Include="Code\Repositories\MedicRepository.cs" />
+    <Compile Include="Code\Repositories\RepositoryBase.cs" />
     <Compile Include="Code\Repositories\UbigeoRespository.cs" />
-    <Compile Include="Code\Repositories\PricesRepository.cs" />
-    <Compile Include="Code\Repositories\TemplateAskRepository.cs" />
-    <Compile Include="Code\Repositories\TemplateExamItemList.cs" />
-    <Compile Include="Code\Repositories\TemplateExamItemRepository.cs" />
-    <Compile Include="Code\Repositories\TemplateExamRepository.cs" />
-    <Compile Include="Code\Repositories\TemplateRepository.cs" />
-    <Compile Include="Code\Repositories\TemplateRowRepository.cs" />
-    <Compile Include="Code\Repositories\TemplateSectionRepository.cs" />
     <Compile Include="DataConfig.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -90,11 +82,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Code\Repositories\AccountRepository.cs" />
-    <Compile Include="Code\Repositories\MedicRepository.cs" />
-    <Compile Include="Code\Repositories\ExamRepository.cs" />
-    <Compile Include="Code\Repositories\EnterpriseRepository.cs" />
-    <Compile Include="Code\Repositories\ExamOrderRepository.cs" />
-    <Compile Include="Code\Repositories\PacienteRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Recursos\CuentaMaestra.resx">
@@ -123,9 +110,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EntityLab\EntityLab.csproj">
+    <ProjectReference Include="..\EntityLab\Entity.csproj">
       <Project>{d0d482fe-facb-4106-a8d2-206089b092ee}</Project>
-      <Name>EntityLab</Name>
+      <Name>Entity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using DataManager.Recursos;
-using EntityLab.Code.Hospital.Analisis;
-using EntityLab.Code.Base;
+using EntityLab.Code.Analisis;
+using EntityLab.Code.Base.FilterStructure;
 using EntityLab.Code.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,35 +9,35 @@ using System.Data.SqlClient;
 
 namespace DataManager.Repositories
 {
-    public class ExamOrderRepository : IRepositoryDetailedRecord<ExamOrder, ExamOrderDetailed,int>
+    public class ExamOrderRepository : IRepositoryDetailedRecord<ExamOrder, ExamOrderDetail,int>
     {
         public void Add(ExamOrder entity)
         {
-
+            DataTable table = null;
             SqlConnection connection = new SqlConnection();
             SqlCommand command = new SqlCommand();
             try
             {
                 connection.ConnectionString = DataConfig.Default.ConnectionString;
-                DataTable table = new DataTable();
+                table = new DataTable();
                 table.Columns.Add("idTemp", typeof(int));
                 table.Columns.Add("idPaquete", typeof(int));
                 table.Columns.Add("cobertura", typeof(int));
-                foreach (ExamOrderDetailed detalle in entity.Detalle.Values)
+                foreach (ExamOrderDetail detalle in entity.Items.Values)
                 {
                     DataRow row = table.NewRow();
                     row[0] = 0;
-                    row[1] = detalle.IdDataPaquete;
+                    row[1] = detalle.IdPackage;
                     row[2] = detalle.Cobertura;
                     table.Rows.Add(row);
                 }
                 command.Connection = connection;
                 command.CommandText = ProcAdd.ADD_ORDENCAB;
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@numero", entity.Boleta);
-                command.Parameters.AddWithValue("@fecha", entity.FechaRegistro);
-                command.Parameters.AddWithValue("@ultimaModificacion", entity.UltimaModificacion);
-                command.Parameters.AddWithValue("@estado", entity.Estado);
+                command.Parameters.AddWithValue("@numero", entity.DocumentNumberAssociated );
+                command.Parameters.AddWithValue("@fecha", entity.OnInsert);
+                command.Parameters.AddWithValue("@ultimaModificacion", entity.OnUpdate);
+                command.Parameters.AddWithValue("@estado", entity.State );
                 command.Parameters.AddWithValue("@idPaciente", entity.IdPaciente);
                 command.Parameters.AddWithValue("@gestante", entity.EnGestacion);
                 command.Parameters.AddWithValue("@idConsultorio", entity.IdHospitalOffice);
@@ -46,7 +46,7 @@ namespace DataManager.Repositories
                 command.Parameters.AddWithValue("@detalle", table).SqlDbType = SqlDbType.Structured;
                 command.Connection.Open();
                 command.ExecuteNonQuery();
-                entity.IdData = Convert.ToInt32(command.Parameters["@id"].Value);
+                entity.Id = Convert.ToInt32(command.Parameters["@id"].Value);
             }
             catch (SqlException exception1)
             {
@@ -58,27 +58,27 @@ namespace DataManager.Repositories
                 command.Dispose();
             }
 
-            SqlConnection connection = new SqlConnection();
-            SqlCommand command = new SqlCommand();
-            DataTable table = new DataTable();
+            
+            table = new DataTable();
             table.Columns.Add("idTemp", typeof(int));
             table.Columns.Add("idPaquete", typeof(int));
             table.Columns.Add("cobertura", typeof(int));
-            foreach (ExamOrderDetailed detalle in entity.Detalle.Values)
+            foreach (ExamOrderDetail detalle in entity.Items .Values)
             {
                 DataRow row = table.NewRow();
-                row[0] = detalle.IdData;
-                row[1] = detalle.IdDataPaquete;
+                row[0] = detalle.Id ;
+                row[1] = detalle.IdPackage ;
                 row[2] = detalle.Cobertura;
                 table.Rows.Add(row);
             }
+
             try
             {
                 connection.ConnectionString = DataConfig.Default.ConnectionString;
                 command.Connection = connection;
                 command.CommandText = ProcAdd.ADD_ORDENDET;
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@id", entity.IdData);
+                command.Parameters.AddWithValue("@id", entity.Id );
                 command.Parameters.AddWithValue("@detalleInsert", table).SqlDbType = SqlDbType.Structured;
                 command.Connection.Open();
                 command.ExecuteNonQuery();
@@ -120,7 +120,7 @@ namespace DataManager.Repositories
                 connection.Close();
                 command.Dispose();
             }
-
+            
         }
 
         public IEnumerable<ExamOrder> SelectList()
@@ -149,18 +149,18 @@ namespace DataManager.Repositories
                 {
                     entity = new ExamOrder
                     {
-                        Boleta = reader["numero"].ToString(),
-                        FechaRegistro = Convert.ToDateTime(reader["fechaRegistro"]),
+                        DocumentNumberAssociated  = reader["numero"].ToString(),
+                        OnInsert = Convert.ToDateTime(reader["fechaRegistro"]),
                         IdPaciente = Convert.ToInt32(reader["idPaciente"]),
-                        IdData = Convert.ToInt32(reader["id"]),
-                        Estado = (ExamOrder.EstadoOrden)Convert.ToInt32(reader["estado"]),
-                        UltimaModificacion = Convert.ToDateTime(reader["ultimaModificacion"]),
+                        Id  = Convert.ToInt32(reader["id"]),
+                        State  = (EntityDocumentState.DocumentState)Convert.ToInt32(reader["estado"]),
+                        OnUpdate  = Convert.ToDateTime(reader["ultimaModificacion"]),
                         EnGestacion = Convert.ToBoolean(reader["gestante"]),
                         IdMedic = Convert.ToInt32(reader["idMedico"]),
                         IdHospitalOffice = Convert.ToInt32(reader["idConsultorio"])
                     };
-                    entity.Detalle = null;
-                    dictionary.Add(entity.IdData, entity);
+                    entity.Items  = null;
+                    dictionary.Add(entity.Id , entity);
                 }
                 reader.Close();
             }
@@ -173,7 +173,7 @@ namespace DataManager.Repositories
                 connection.Close();
                 command.Dispose();
             }
-            return dictionary;
+            return dictionary.Values ;
         }
 
         public ExamOrder Select(int id)
@@ -193,19 +193,13 @@ namespace DataManager.Repositories
                 while (reader.Read())
                 {
                     entity = new ExamOrder
-                    {
-                        Boleta = reader["numero"].ToString(),
-                        FechaRegistro = Convert.ToDateTime(reader["fechaRegistro"]),
-                        IdPaciente = Convert.ToInt32(reader["idPaciente"]),
-                        IdData = Convert.ToInt32(reader["id"]),
-                        Estado = (ExamOrder.EstadoOrden)Convert.ToInt32(reader["estado"]),
-                        UltimaModificacion = Convert.ToDateTime(reader["ultimaModificacion"])
+                    { 
                     };
                     entity.EnGestacion = Convert.ToBoolean(reader["gestante"]);
                     entity.IdMedic = Convert.ToInt32(reader["idMedico"]);
                     entity.IdHospitalOffice = Convert.ToInt32(reader["idConsultorio"]);
 
-                    entity.Detalle = null;
+                    entity.Items  = null;
                 }
                 reader.Close();
             }
@@ -219,51 +213,17 @@ namespace DataManager.Repositories
                 command.Dispose();
             }
 
-        }
-        public void Delete(int id)
-        {
-            connection = new SqlConnection();
-            command = new SqlCommand();
-            DataTable table = new DataTable();
-            table.Columns.Add("idTemp", typeof(int));
-            table.Columns.Add("idPaquete", typeof(int));
-            table.Columns.Add("cobertura", typeof(int));
-            foreach (ExamOrderDetailed detalle in entity.Detalle.Values)
-            {
-                DataRow row = table.NewRow();
-                row[0] = detalle.IdData;
-                row[1] = detalle.IdDataPaquete;
-                row[2] = detalle.Cobertura;
-                table.Rows.Add(row);
-            }
-            try
-            {
-                connection.ConnectionString = DataConfig.Default.ConnectionString;
-                command.Connection = connection;
-                command.CommandText = ProcDel.DEL_ORDENDET;
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@id", id);
-                command.Parameters.AddWithValue("@detalleDeleted", table).SqlDbType = SqlDbType.Structured;
-                command.Connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException exception1)
-            {
-                throw new Exception(exception1.Message);
-            }
-            finally
-            {
-                connection.Close();
-                command.Dispose();
-            }
+            return entity;
+
         }
 
-        public IDictionary<int, ExamOrderDetailed> SelectDic()
+        public IDictionary<int, ExamOrderDetail> SelectDic()
         {
+
             SqlConnection connection = new SqlConnection();
             SqlCommand command = new SqlCommand();
-            Dictionary<int, ExamOrderDetailed> dictionary = new Dictionary<int, ExamOrderDetailed>();
-            ExamOrderDetailed detalle = null;
+            Dictionary<int, ExamOrderDetail> dictionary = new Dictionary<int, ExamOrderDetail>();
+            ExamOrderDetail detalle = null;
             connection = new SqlConnection();
             command = new SqlCommand();
             try
@@ -272,18 +232,18 @@ namespace DataManager.Repositories
                 command.Connection = connection;
                 command.CommandText = ProcGet.GET_ORDENDET_BYORDENCAB;
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@idOrden", id);
+                command.Parameters.AddWithValue("@idOrden", 0);
                 command.Connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    detalle = new ExamOrderDetailed
+                    detalle = new ExamOrderDetail
                     {
-                        IdData = Convert.ToInt32(reader["id"]),
-                        IdDataPaquete = Convert.ToInt32(reader["idPaquete"]),
+                        Id = Convert.ToInt32(reader["id"]),
+                        IdPackage = Convert.ToInt32(reader["idPaquete"]),
                         Cobertura = Convert.ToInt32(reader["cobertura"])
                     };
-                    dictionary.Add(detalle.IdData, detalle);
+                    dictionary.Add(detalle.Id, detalle);
                 }
                 reader.Close();
             }
@@ -296,9 +256,10 @@ namespace DataManager.Repositories
                 connection.Close();
                 command.Dispose();
             }
+            return dictionary;
         }
-
-        public void Update(ExamOrderDetailed entity)
+       
+        public void Update(ExamOrderDetail entity)
         {
             SqlConnection connection = new SqlConnection();
             SqlCommand command = new SqlCommand();
@@ -307,22 +268,14 @@ namespace DataManager.Repositories
             DataTable table = new DataTable();
             table.Columns.Add("id", typeof(int));
             table.Columns.Add("idPaquete", typeof(int));
-            table.Columns.Add("cobertura", typeof(int));
-            foreach (ExamOrderDetailed detalle in entity.Detalle.Values)
-            {
-                DataRow row = table.NewRow();
-                row[0] = detalle.IdData;
-                row[1] = detalle.IdDataPaquete;
-                row[2] = detalle.Cobertura;
-                table.Rows.Add(row);
-            }
+            table.Columns.Add("cobertura", typeof(int)); 
             try
             {
                 connection.ConnectionString = DataConfig.Default.ConnectionString;
                 command.Connection = connection;
                 command.CommandText = ProcUpd.UPD_ORDENDET;
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@id", entity.IdData);
+                command.Parameters.AddWithValue("@id", entity.Id );
                 command.Parameters.AddWithValue("@detalleUpdate", table).SqlDbType = SqlDbType.Structured;
                 command.Connection.Open();
                 command.ExecuteNonQuery();
@@ -348,11 +301,11 @@ namespace DataManager.Repositories
                 command.Connection = connection;
                 command.CommandText = ProcUpd.UPD_ORDENCAB;
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@id", entity.IdData);
-                command.Parameters.AddWithValue("@numero", entity.Boleta);
-                command.Parameters.AddWithValue("@fecha", entity.FechaRegistro);
-                command.Parameters.AddWithValue("@ultimaModificacion", entity.UltimaModificacion);
-                command.Parameters.AddWithValue("@estado", entity.Estado);
+                command.Parameters.AddWithValue("@id", entity.Id );
+                command.Parameters.AddWithValue("@numero", entity.DocumentNumberAssociated );
+                command.Parameters.AddWithValue("@fecha", entity.OnInsert);
+                command.Parameters.AddWithValue("@ultimaModificacion", entity.OnUpdate );
+                command.Parameters.AddWithValue("@estado", entity.State );
                 command.Parameters.AddWithValue("@gestante", entity.EnGestacion);
                 command.Parameters.AddWithValue("@idConsultorio", entity.IdHospitalOffice);
                 command.Parameters.AddWithValue("@idMedico", entity.IdMedic);
@@ -375,11 +328,7 @@ namespace DataManager.Repositories
         {
             throw new NotImplementedException();
         }
-
-        public IDictionary<int, ExamOrder> SelectDic()
-        {
-            throw new NotImplementedException();
-        }
+         
 
         public IEnumerable<ExamOrder> SelectDic(FilterParameter[] parameters)
         {
@@ -391,29 +340,31 @@ namespace DataManager.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ExamOrderDetailed> SelectDetailedList(int id)
+        public IEnumerable<ExamOrderDetail> SelectDetailedList(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ExamOrderDetailed> SelectDetailedList(FilterParameter[] parameters)
+        public IEnumerable<ExamOrderDetail> SelectDetailedList(FilterParameter[] parameters)
         {
             throw new NotImplementedException();
         }
 
-        public IDictionary<int, ExamOrderDetailed> SelectDetailedDic(int id)
+        public IDictionary<int, ExamOrderDetail> SelectDetailedDic(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IDictionary<int, ExamOrderDetailed> SelectDetailedDic(FilterParameter[] parameters)
+        public IDictionary<int, ExamOrderDetail> SelectDetailedDic(FilterParameter[] parameters)
         {
             throw new NotImplementedException();
         }
 
-        IDictionary<int, ExamOrder> IRepositoryDetailedRecord<ExamOrder, ExamOrderDetailed, int>.SelectDic(FilterParameter[] parameters)
+        IDictionary<int, ExamOrder> IRepositoryDetailedRecord<ExamOrder, ExamOrderDetail, int>.SelectDic(FilterParameter[] parameters)
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

@@ -1,8 +1,8 @@
-﻿using EntityLab.Code.Base;
+﻿using Entity.Code.Base.FilterStructure;
 using System.Collections.Generic;
 using System.Data;
 
-namespace EntityLab.Code.Interfaces
+namespace Entity.Code.Interfaces
 {
     public interface IRepositoryDetailedRecord<TEntity,TDetail,TKey>
     {

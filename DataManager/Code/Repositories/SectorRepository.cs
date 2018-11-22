@@ -9,9 +9,9 @@ using System.Data.SqlClient;
 
 namespace DataManager.Code.Repositories
 {
-    public class SectorRepository : IRepositorySimpleRecord<Sector, int>
+    public class SectorRepository : IRepositorySimpleRecord<UbigeoSector, int>
     {
-        public void Add(Sector entity)
+        public void Add(UbigeoSector entity)
         {
             throw new NotImplementedException();
         }
@@ -21,20 +21,20 @@ namespace DataManager.Code.Repositories
             throw new NotImplementedException();
         }
 
-        public Sector Select(int id)
+        public UbigeoSector Select(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Sector> SelectList()
+        public IEnumerable<UbigeoSector> SelectList()
         {
             throw new NotImplementedException();
         }
 
-        public IDictionary<int, Sector> SelectDic()
+        public IDictionary<int, UbigeoSector> SelectDic()
         {
-            Sector sector = null;
-            Dictionary<int, Sector> dictionary = new Dictionary<int, Sector>();
+            UbigeoSector sector = null;
+            Dictionary<int, UbigeoSector> dictionary = new Dictionary<int, UbigeoSector>();
             SqlConnection connection = new SqlConnection
             {
                 ConnectionString = DataConfig.Default.ConnectionString
@@ -50,7 +50,7 @@ namespace DataManager.Code.Repositories
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                sector = new Sector
+                sector = new UbigeoSector
                 {
                     Id = Convert.ToInt32(reader["id"]),
                     Description = reader["nombre"].ToString(),
@@ -64,22 +64,22 @@ namespace DataManager.Code.Repositories
             return dictionary;
         }
 
-        public void Update(Sector entity)
+        public void Update(UbigeoSector entity)
         {
             throw new NotImplementedException();
         }
 
-        public Sector Select(FilterParameter[] parameters)
+        public UbigeoSector Select(FilterParameter[] parameters)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Sector> SelectList(FilterParameter[] parameters)
+        public IEnumerable<UbigeoSector> SelectList(FilterParameter[] parameters)
         {
             throw new NotImplementedException();
         }
 
-        public IDictionary<int, Sector> SelectDic(FilterParameter[] parameters)
+        public IDictionary<int, UbigeoSector> SelectDic(FilterParameter[] parameters)
         {
             throw new NotImplementedException();
         }

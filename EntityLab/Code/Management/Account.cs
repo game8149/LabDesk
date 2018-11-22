@@ -1,8 +1,10 @@
+using Entity.Code.Base.Documentary;
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace EntityLab.Code.Management
+namespace Entity.Code.Management
 {
-    public class Account
+    public class Account : EntityDocument
     {
         [Key]
         public int Id { get; set; }
@@ -10,7 +12,11 @@ namespace EntityLab.Code.Management
         public string Password { get; set; }
         public string Name { get; set; }
         public string Surnames { get; set; }
-        public AccountSecurity Security { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public DateTime LastLogin { get; set; }
+
+        public AccountSecurity CurrentSecurity { get; set; }
 
     }
 }

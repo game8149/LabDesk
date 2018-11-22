@@ -1,6 +1,6 @@
-﻿using EntityLab.Code.Base;
+﻿using EntityLab.Code.Base.FilterStructure;
+using EntityLab.Code.Business;
 using EntityLab.Code.Interfaces;
-using EntityLab.Code.Management;
 using System.Collections.Generic;
 using System.Data;
 

@@ -1,6 +1,6 @@
 ﻿using DataManager.Recursos;
+using EntityLab.Code.Analisis.Templates;
 using EntityLab.Code.Base;
-using EntityLab.Code.Hospital.Analisis.Templates;
 using EntityLab.Code.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,9 +9,9 @@ using System.Data.SqlClient;
 
 namespace DataManager.Code.Repositories
 {
-    public class TemplateExamRepository : IRepositoryDetailedRecord<Template, TemplateRow, int>
+    public class TemplateExamRepository : IRepositoryDetailedRecord<TemplateExam, TemplateExamRow, int>
     {
-        public void Add(Template entity)
+        public void Add(TemplateExam entity)
         {
             throw new NotImplementedException();
         }
@@ -21,9 +21,9 @@ namespace DataManager.Code.Repositories
             throw new NotImplementedException();
         }
 
-        public Template Select(int id)
+        public TemplateExam Select(int id)
         {
-            Template plantilla = null;
+            TemplateExam plantilla = null;
             SqlConnection connection = null;
             SqlCommand command = null;
             SqlDataReader reader = null;
@@ -42,7 +42,7 @@ namespace DataManager.Code.Repositories
             reader = command.ExecuteReader();
             while (reader.Read())
             {
-                plantilla = new Template
+                plantilla = new TemplateExam
                 {
                     IdDataPlantilla = Convert.ToInt32(reader["id"]),
                     Codigo = reader["codigo"].ToString(),
@@ -73,10 +73,10 @@ namespace DataManager.Code.Repositories
             return plantilla;
         }
 
-        public IEnumerable<Template> SelectList()
+        public IEnumerable<TemplateExam> SelectList()
         {
-            Dictionary<int, Template> dictionary = new Dictionary<int, Template>();
-            Template plantilla = null;
+            Dictionary<int, TemplateExam> dictionary = new Dictionary<int, TemplateExam>();
+            TemplateExam plantilla = null;
             SqlConnection connection = new SqlConnection
             {
                 ConnectionString = DataConfig.Default.ConnectionString
@@ -91,7 +91,7 @@ namespace DataManager.Code.Repositories
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                plantilla = new Template
+                plantilla = new TemplateExam
                 {
                     IdDataPlantilla = Convert.ToInt32(reader["id"]),
                     Codigo = reader["codigo"].ToString(),
@@ -124,12 +124,12 @@ namespace DataManager.Code.Repositories
             return dictionary;
         }
 
-        public IEnumerable<Template> SelectList(FilterParameter[] parameters)
+        public IEnumerable<TemplateExam> SelectList(FilterParameter[] parameters)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Template entity)
+        public void Update(TemplateExam entity)
         {
             throw new NotImplementedException();
         }
@@ -221,32 +221,32 @@ namespace DataManager.Code.Repositories
             return dictionary;
         }
 
-        public Template Select(FilterParameter[] parameters)
+        public TemplateExam Select(FilterParameter[] parameters)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TemplateRow> SelectDetailedList(int id)
+        public IEnumerable<TemplateExamRow> SelectDetailedList(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TemplateRow> SelectDetailedList(FilterParameter[] parameters)
+        public IEnumerable<TemplateExamRow> SelectDetailedList(FilterParameter[] parameters)
         {
             throw new NotImplementedException();
         }
 
-        public IDictionary<int, TemplateRow> SelectDetailedDic(int id)
+        public IDictionary<int, TemplateExamRow> SelectDetailedDic(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IDictionary<int, TemplateRow> SelectDetailedDic(FilterParameter[] parameters)
+        public IDictionary<int, TemplateExamRow> SelectDetailedDic(FilterParameter[] parameters)
         {
             throw new NotImplementedException();
         }
 
-        public IDictionary<int, Template> SelectDic(FilterParameter[] parameters)
+        public IDictionary<int, TemplateExam> SelectDic(FilterParameter[] parameters)
         {
             throw new NotImplementedException();
         }

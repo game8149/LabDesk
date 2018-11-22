@@ -1,16 +1,16 @@
 using DataManager.Repositories;
-using EntityLab.Code.Hospital.Analisis;
-using EntityLab.Code.Interfaces;
+using Entity.Code.Hospital.Analisis;
+using Entity.Code.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static EntityLab.Code.Base.EntityDocumentState;
+using static Entity.Code.Base.EntityDocumentState;
 
 namespace MinLab.Code.LogicLayer.LogicaTarifario
 {
     public class LogicaOrden
     {
-        private IRepositoryDetailedRecord<ExamOrder, ExamOrderDetailed, int> repoExamOrder = new ExamOrderRepository();
+        private IRepositoryDetailedRecord<ExamOrder, ExamOrderDetail, int> repoExamOrder = new ExamOrderRepository();
 
         public void ActualizarOrden(ExamOrder orden)
         {

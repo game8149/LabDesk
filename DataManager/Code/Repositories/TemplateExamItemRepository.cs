@@ -1,31 +1,13 @@
-﻿using EntityLab.Code.Hospital.Analisis;
-using EntityLab.Code.Base;
+﻿using EntityLab.Code.Base;
 using EntityLab.Code.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataManager.Code.Repositories
 {
-    public class TemplateExamItemRepository : IRepositorySimpleRecord<PlantillaItem, int>
+    public class TemplateExamItemRepository : IRepositorySimpleRecord<TemplateExamItem, int>
     {
-        public void Add(PlantillaItem entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public PlantillaItem Select(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public IEnumerable<PlantillaItem> SelectList()
         {
@@ -100,10 +82,6 @@ namespace DataManager.Code.Repositories
             command.Dispose();
             return dictionary;
         }
-
-        public void Update(PlantillaItem entity)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

@@ -1,15 +1,17 @@
 ﻿using DataManager.Recursos;
-using EntityLab.Code.Base;
-using EntityLab.Code.Interfaces;
-using EntityLab.Code.Management;
+using Entity.Code.Base.FilterStructure;
+using Entity.Code.Interfaces;
+using Entity.Code.Management;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using static Entity.Code.Management.AccountSecurity;
 
 namespace DataManager.Code.Repositories
 {
-    public class AccountSecurityRepository : IRepositorySimpleRecord<AccountSecurity, int>
+    public class AccountSecurityRepository : IEntityRepository<AccountSecurity, int>
     {
         public void Add(AccountSecurity entity)
         {
@@ -17,18 +19,35 @@ namespace DataManager.Code.Repositories
             {
                 ConnectionString = DataConfig.Default.ConnectionString
             };
-            SqlCommand command1 = new SqlCommand
+            SqlCommand command = new SqlCommand
             {
                 Connection = connection,
                 CommandText = ProcAdd.ADD_SEGURIDAD,
                 CommandType = CommandType.StoredProcedure
             };
-            command1.Parameters.AddWithValue("@idCuenta", entity.IdAccount);
-            command1.Parameters.AddWithValue("@codigo", entity.Code );
-            command1.Connection.Open();
-            command1.ExecuteNonQuery();
-            connection.Close();
-            command1.Dispose();
+
+            try
+            {
+                command.Parameters.Add(new SqlParameter { ParameterName = "@id", SqlValue = entity.Id, SqlDbType = SqlDbType.Int });
+                command.Parameters.Add(new SqlParameter { ParameterName = "@idAccount", SqlValue = entity.IdAccount, SqlDbType = SqlDbType.Int });
+                command.Parameters.Add(new SqlParameter { ParameterName = "@level", SqlValue = entity.IdAccount, SqlDbType = SqlDbType.Int });
+                command.Parameters.Add(new SqlParameter { ParameterName = "@code", SqlValue = entity.Code, SqlDbType = SqlDbType.Int });
+                command.Parameters.Add(new SqlParameter { ParameterName = "@account", SqlValue = entity.IdAccount, SqlDbType = SqlDbType.Int });
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+                if (command != null)
+                    command.Dispose();
+            }
         }
 
         public void Delete(int id)
@@ -49,21 +68,37 @@ namespace DataManager.Code.Repositories
                 CommandText = ProcGet.GET_SEGURIDAD,
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@idCuenta", id);
-            command.Connection.Open();
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+
+
+            try
             {
-                obj = new AccountSecurity
+                command.Parameters.Add(new SqlParameter { ParameterName = "@id", SqlValue = id, SqlDbType = SqlDbType.Int });
+                command.Connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    Id = id,
-                    Code = reader["code"].ToString(),
-                    IdAccount = (int)reader["code"]
-                };
+                    obj = new AccountSecurity
+                    {
+                        Id = id,
+                        Code = (string)reader["code"],
+                        Level = (AccountSecurityLevel)reader["level"],
+                        IdAccount = (int)reader["idAccount"]
+                    };
+                }
+                reader.Close();
             }
-            reader.Close();
-            connection.Close();
-            command.Dispose();
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+                if (command != null)
+                    command.Dispose();
+            }
+
             return obj;
         }
 
@@ -83,18 +118,22 @@ namespace DataManager.Code.Repositories
             {
                 ConnectionString = DataConfig.Default.ConnectionString
             };
-            SqlCommand command1 = new SqlCommand
+            SqlCommand command = new SqlCommand
             {
                 Connection = connection,
                 CommandText = ProcUpd.UPD_SEGURIDAD,
                 CommandType = CommandType.StoredProcedure
             };
-            command1.Parameters.AddWithValue("@idCuenta", entity.IdAccount);
-            command1.Parameters.AddWithValue("@codigo", entity.Code);
-            command1.Connection.Open();
-            command1.ExecuteNonQuery();
+
+            command.Parameters.Add(new SqlParameter { ParameterName = "@id", SqlValue = entity.Id, SqlDbType = SqlDbType.Int });
+            command.Parameters.Add(new SqlParameter { ParameterName = "@level", SqlValue = entity.IdAccount, SqlDbType = SqlDbType.Int });
+            command.Parameters.Add(new SqlParameter { ParameterName = "@code", SqlValue = entity.Code, SqlDbType = SqlDbType.Int });
+            command.Parameters.Add(new SqlParameter { ParameterName = "@account", SqlValue = entity.IdAccount, SqlDbType = SqlDbType.Int });
+
+            command.Connection.Open();
+            command.ExecuteNonQuery();
             connection.Close();
-            command1.Dispose();
+            command.Dispose();
         }
 
         public AccountSecurity Select(FilterParameter[] parameters)
@@ -116,5 +155,7 @@ namespace DataManager.Code.Repositories
         {
             throw new NotImplementedException();
         }
+
+      
     }
 }

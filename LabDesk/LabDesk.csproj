@@ -32,6 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MaterialDesignColors, Version=1.0.0.14576, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.1\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.5.0.1205, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.5.0.1205\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -484,6 +490,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Opciones.Designer.cs</LastGenOutput>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -498,9 +505,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EntityLab\EntityLab.csproj">
+    <ProjectReference Include="..\EntityLab\Entity.csproj">
       <Project>{d0d482fe-facb-4106-a8d2-206089b092ee}</Project>
-      <Name>EntityLab</Name>
+      <Name>Entity</Name>
     </ProjectReference>
     <ProjectReference Include="..\LabServices\LabServices.csproj">
       <Project>{BE4F15A8-FBF2-4098-B965-DE81A222F828}</Project>

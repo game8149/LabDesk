@@ -1,4 +1,4 @@
-﻿namespace EntityLab.Code.Management
+﻿namespace Entity.Code.Management
 {
     public class AccountProfessional
     {

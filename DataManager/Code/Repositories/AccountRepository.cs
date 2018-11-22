@@ -1,42 +1,97 @@
 ﻿using DataManager.Recursos;
-using EntityLab.Code.Base;
-using EntityLab.Code.Interfaces;
-using EntityLab.Code.Management;
+using Entity.Code.Base.FilterStructure;
+using Entity.Code.Interfaces;
+using Entity.Code.Management;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace DataManager.Code.Repositories
 {
-    public class RepositoryAccount : IRepositorySimpleRecord<Account, int>
+    public class AccountRepository : IEntityRepository<Account, int>
     {
+        IEntityRepository<AccountSecurity, int> SecurityRepo = new AccountSecurityRepository();
+
         public void Add(Account entity)
         {
+
             SqlConnection connection = new SqlConnection
             {
                 ConnectionString = DataConfig.Default.ConnectionString
             };
-            SqlCommand command1 = new SqlCommand
+            SqlCommand command = new SqlCommand
             {
                 Connection = connection,
                 CommandText = ProcAdd.ADD_CUENTA,
                 CommandType = CommandType.StoredProcedure
             };
-            command1.Parameters.AddWithValue("@nombre", entity.Name);
-            command1.Parameters.AddWithValue("@primerApellido", entity.Surnames);
-            //command1.Parameters.AddWithValue("@especialidad", entity.Especialidad);
-            command1.Parameters.AddWithValue("@dni", entity.Tag);
-            command1.Parameters.AddWithValue("@clave", entity.Password);
-            command1.Connection.Open();
-            command1.ExecuteNonQuery();
-            connection.Close();
-            command1.Dispose();
+
+            try
+            {
+                command.Parameters.AddRange(new SqlParameter[] {
+                    new SqlParameter { ParameterName = "@tag", SqlValue = entity.Tag, SqlDbType = SqlDbType.VarChar, Size = 100 },
+                    new SqlParameter { ParameterName = "@names", SqlValue = entity.Name, SqlDbType = SqlDbType.VarChar, Size = 100 },
+                    new SqlParameter { ParameterName = "@surnames", SqlValue = entity.Surnames, SqlDbType = SqlDbType.VarChar, Size = 100 },
+                    new SqlParameter { ParameterName = "@password", SqlValue = entity.Password, SqlDbType = SqlDbType.VarChar, Size = 100 },
+                    new SqlParameter { ParameterName = "@email", SqlValue = entity.Surnames, SqlDbType = SqlDbType.VarChar, Size = 100 },
+                    new SqlParameter { ParameterName = "@account", SqlValue = entity.AccountInsert, SqlDbType = SqlDbType.VarChar, Size = 100 }
+                });
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+                if (command != null)
+                    command.Dispose();
+            }
         }
+
+        //
+        /// <summary>
+        /// Only inhabilite account
+        /// </summary>
+        /// <param name="id"></param>
+        /// 
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            SqlConnection connection = new SqlConnection
+            {
+                ConnectionString = DataConfig.Default.ConnectionString
+            };
+            SqlCommand command = new SqlCommand
+            {
+                Connection = connection,
+                CommandText = ProcAdd.ADD_CUENTA,
+                CommandType = CommandType.StoredProcedure
+            };
+
+            try
+            {
+                command.Parameters.Add(new SqlParameter { ParameterName = "@id", SqlValue = id, SqlDbType = SqlDbType.Int });
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+                if (command != null)
+                    command.Dispose();
+            }
         }
 
         public Account Select(int id)
@@ -52,27 +107,47 @@ namespace DataManager.Code.Repositories
                 CommandText = ProcGet.GET_CUENTA_BYID,
                 CommandType = CommandType.StoredProcedure
             };
-            command.Parameters.AddWithValue("@idCuenta", id);
-            command.Connection.Open();
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+
+            try
             {
-                entity = new Account
+                command.Parameters.Add(new SqlParameter { ParameterName = "@id", SqlValue = id, SqlDbType = SqlDbType.Int });
+                command.Connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    Id = Convert.ToInt32(reader["id"]),
-                    Name = reader["nombre"].ToString(),
-                    Surnames = reader["primerApellido"].ToString(),
-                    //SegundoApellido = reader["segundoApellido"].ToString(),
-                   // Especialidad = reader["especialidad"].ToString(),
-                   // CodigoPro = reader["codigo"].ToString(),
-                    Tag = reader["dni"].ToString(),
-                    Password = reader["clave"].ToString(),
-                    //Nivel = Convert.ToInt32(reader["nivel"].ToString())
-                };
+                    entity = new Account
+                    {
+                        Id = (int)reader["id"],
+                        Tag = (string)reader["tag"],
+                        Name = (string)reader["name"],
+                        Surnames = (string)reader["surnames"],
+                        Password = (string)reader["password"],
+                        Email = (string)reader["email"],
+                        Phone = (string)reader["phone"],
+                        CurrentSecurity = SecurityRepo.Select(
+                            new FilterParameter[] {
+                                new FilterParameter {
+                                    Index = 0, Value = (string)reader["tag"], Type = Type.GetType("String")
+                                }
+                            }
+                            )
+                    };
+                }
+
+                reader.Close();
             }
-            reader.Close();
-            connection.Close();
-            command.Dispose();
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+                if (command != null)
+                    command.Dispose();
+            }
+
             return entity;
         }
 
@@ -82,61 +157,91 @@ namespace DataManager.Code.Repositories
             {
                 ConnectionString = DataConfig.Default.ConnectionString
             };
-            SqlCommand command1 = new SqlCommand
+            SqlCommand command = new SqlCommand
             {
                 Connection = connection,
                 CommandText = ProcUpd.UPD_CUENTA,
                 CommandType = CommandType.StoredProcedure
             };
-            command1.Parameters.AddWithValue("@idCuenta", entity.Id);
-            command1.Parameters.AddWithValue("@nombre", entity.Name);
-            command1.Parameters.AddWithValue("@primerApellido", entity.Surnames);
-            //command1.Parameters.AddWithValue("@segundoApellido", entity.SegundoApellido);
-           // command1.Parameters.AddWithValue("@especialidad", entity.Especialidad);
-          //  command1.Parameters.AddWithValue("@codigo", entity.CodigoPro);
-            command1.Parameters.AddWithValue("@dni", entity.Tag);
-            command1.Connection.Open();
-            command1.ExecuteNonQuery();
-            connection.Close();
-            command1.Dispose();
+
+            try
+            {
+                command.Parameters.AddRange(new SqlParameter[] {
+                    new SqlParameter { ParameterName = "@id", SqlValue = entity.Id, SqlDbType = SqlDbType.Int },
+                    new SqlParameter { ParameterName = "@tag", SqlValue = entity.Tag, SqlDbType = SqlDbType.VarChar, Size = 100 },
+                    new SqlParameter { ParameterName = "@names", SqlValue = entity.Name, SqlDbType = SqlDbType.VarChar, Size = 100 },
+                    new SqlParameter { ParameterName = "@surnames", SqlValue = entity.Surnames, SqlDbType = SqlDbType.VarChar, Size = 100 },
+                    new SqlParameter { ParameterName = "@password", SqlValue = entity.Password, SqlDbType = SqlDbType.VarChar, Size = 100 },
+                    new SqlParameter { ParameterName = "@email", SqlValue = entity.Surnames, SqlDbType = SqlDbType.VarChar, Size = 100 },
+                    new SqlParameter { ParameterName = "@account", SqlValue = entity.AccountInsert, SqlDbType = SqlDbType.VarChar, Size = 100 }
+                });
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+                if (command != null)
+                    command.Dispose();
+            }
         }
-        
+
         public void UpdatePassword(int id, string pass)
         {
             SqlConnection connection = new SqlConnection
             {
                 ConnectionString = DataConfig.Default.ConnectionString
             };
-            SqlCommand command1 = new SqlCommand
+            SqlCommand command = new SqlCommand
             {
                 Connection = connection,
                 CommandText = ProcUpd.UPD_CUENTA_CLAVE,
                 CommandType = CommandType.StoredProcedure
             };
-            command1.Parameters.AddWithValue("@idCuenta", id);
-            command1.Parameters.AddWithValue("@clave", pass);
-            command1.Connection.Open();
-            command1.ExecuteNonQuery();
-            connection.Close();
-            command1.Dispose();
+
+            try
+            {
+                command.Parameters.Add(new SqlParameter { ParameterName = "@id", SqlValue = id, SqlDbType = SqlDbType.Int });
+                command.Parameters.Add(new SqlParameter { ParameterName = "@password", SqlValue = pass, SqlDbType = SqlDbType.VarChar });
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+                if (command != null)
+                    command.Dispose();
+            }
+
         }
-        
+
         public bool CheckExist(string dni)
         {
             bool flag = false;
+            SqlConnection connection = new SqlConnection
+            {
+                ConnectionString = DataConfig.Default.ConnectionString
+            };
+            SqlCommand command = new SqlCommand
+            {
+                Connection = connection,
+                CommandText = ProcGet.GET_CUENTA_EXISTE,
+                CommandType = CommandType.StoredProcedure
+            };
             try
             {
-                SqlConnection connection = new SqlConnection
-                {
-                    ConnectionString = DataConfig.Default.ConnectionString
-                };
-                SqlCommand command = new SqlCommand
-                {
-                    Connection = connection,
-                    CommandText = ProcGet.GET_CUENTA_EXISTE,
-                    CommandType = CommandType.StoredProcedure
-                };
-                command.Parameters.AddWithValue("@dni", dni);
+                command.Parameters.Add(new SqlParameter { ParameterName = "@tag", SqlValue = dni, SqlDbType = SqlDbType.VarChar });
                 command.Connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
@@ -144,16 +249,21 @@ namespace DataManager.Code.Repositories
                     flag = Convert.ToInt32(reader["num"]) > 0;
                 }
                 reader.Close();
-                connection.Close();
-                command.Dispose();
             }
-            catch (Exception exception1)
+            catch (Exception ex)
             {
-                throw new Exception(exception1.Message);
+                Debug.Print(ex.Message);
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+                if (command != null)
+                    command.Dispose();
             }
             return flag;
         }
-        
+
         public IDictionary<int, Account> SelectDic()
         {
             throw new NotImplementedException();
@@ -192,30 +302,53 @@ namespace DataManager.Code.Repositories
                 CommandText = ProcGet.GET_CUENTA,
                 CommandType = CommandType.StoredProcedure
             };
-            command.Connection.Open();
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+
+            try
             {
-                entity = new Account
+                command.Connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    Id = Convert.ToInt32(reader["id"]),
-                    Name = reader["nombre"].ToString(),
-                    Surnames = reader["primerApellido"].ToString(),
-                   // SegundoApellido = reader["segundoApellido"].ToString(),
-                   // Especialidad = reader["especialidad"].ToString(),
-                    //CodigoPro = reader["codigo"].ToString(),
-                    Tag = reader["dni"].ToString(),
-                    Password = reader["clave"].ToString()
-                   // Nivel = Convert.ToInt32(reader["nivel"].ToString())
-                };
+                    entity = new Account
+                    {
+                        Id = (int)reader["id"],
+                        Tag = (string)reader["tag"],
+                        Name = (string)reader["name"],
+                        Surnames = (string)reader["surnames"],
+                        Password = (string)reader["password"],
+                        Email = (string)reader["email"],
+                        Phone = (string)reader["phone"],
+                        CurrentSecurity = SecurityRepo.Select((int)reader["id"])
+                    };
+                }
+                reader.Close();
             }
-            reader.Close();
-            connection.Close();
-            command.Dispose();
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+                if (command != null)
+                    command.Dispose();
+            }
+
             return entity;
         }
 
-        IDictionary<int, Account> IRepositorySimpleRecord<Account, int>.SelectDic(FilterParameter[] parameters)
+        IDictionary<int, Account> IEntityRepository<Account, int>.SelectDic(FilterParameter[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IEntityRepository<Account, int>.Add(Account entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IEntityRepository<Account, int>.Update(Account entity)
         {
             throw new NotImplementedException();
         }

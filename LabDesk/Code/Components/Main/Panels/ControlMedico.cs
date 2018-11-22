@@ -1,4 +1,4 @@
-using EntityLab.Code.Hospital;
+using Entity.Code.Hospital;
 using LabDesk.Code.Components.Actors.Medico;
 using LabDesk.Code.Forms;
 using LabDesk.Code.PresentationLayer.Controles.ComponentesMedico;

@@ -1,9 +1,10 @@
 
 using DataManager;
 using DataManager.Recursos;
-using EntityLab.Code.Base;
-using EntityLab.Code.Interfaces;
-using EntityLab.Code.Location;
+using Entity.Code.Base;
+using Entity.Code.Base.FilterStructure;
+using Entity.Code.Interfaces;
+using Entity.Code.Location;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,7 +13,7 @@ using System.Data.SqlClient;
 namespace MinLab.Code.DataLayer
 {
 
-    public class UbigeoRespository : IRepositorySimpleRecord<Ubigeo,string>
+    public class UbigeoRespository : IEntityRepository<Ubigeo,string>
     {
         public void Add(Ubigeo entity)
         {
@@ -36,7 +37,7 @@ namespace MinLab.Code.DataLayer
 
         public IDictionary<string, Ubigeo> SelectDic()
         {
-            Ubigeo distrito = null;
+            Ubigeo entity = null;
             Dictionary<string, Ubigeo> dictionary = new Dictionary<string, Ubigeo>();
             SqlConnection connection = new SqlConnection
             {
@@ -52,13 +53,13 @@ namespace MinLab.Code.DataLayer
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                distrito = new Ubigeo
+                entity = new Ubigeo
                 {
-                    Code =reader["id"].ToString(),
+                    Id  =reader["id"].ToString(),
                     Description = reader["nombre"].ToString()
                 };
                 //distrito.Sectores = this.GetSectorAll(distrito.IdData);
-                dictionary.Add(distrito.Code, distrito);
+                dictionary.Add(entity.Id, entity);
             }
             reader.Close();
             connection.Close();

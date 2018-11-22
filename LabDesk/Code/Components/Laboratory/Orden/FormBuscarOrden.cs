@@ -1,5 +1,5 @@
-﻿using EntityLab.Code.Hospital;
-using EntityLab.Code.Hospital.Analisis;
+﻿using Entity.Code.Hospital;
+using Entity.Code.Hospital.Analisis;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,12 +10,12 @@ namespace LabDesk.Code.Components.Laboratory.Orden
 
     public partial class FormBuscarOrden : Form
     {
-        private Dictionary<int, Paciente> diccionarioPaciente;
+        private Dictionary<int, Patient> diccionarioPaciente;
         private Dictionary<int, ExamOrder> diccionarioOrden;
         
 
 
-        public Paciente Perfil { get; set; }
+        public Patient Perfil { get; set; }
         public ExamOrder ExamOrder { get; set; }
 
         //Componentes
@@ -60,7 +60,7 @@ namespace LabDesk.Code.Components.Laboratory.Orden
             this.SuspendLayout();
             foreach (int key in diccionarioPaciente.Keys)
             {
-                Paciente pac = diccionarioPaciente[key];
+                Patient pac = diccionarioPaciente[key];
                 DataRow row = tablaPaciente.NewRow();
                 row[0] = pac.Id;
                 row[1] = pac.Dni;

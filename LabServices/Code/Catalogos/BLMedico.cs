@@ -1,29 +1,14 @@
 namespace MinLab.Code.LogicLayer
 {
+    using Entity.Code.Business;
+    using Entity.Code.Interfaces;
     using System.Collections.Generic;
     using System.Globalization;
 
     public class BLMedico
     {
-        public bool ActualizarMedico(Medico medico)
-        {
-            this.ValidarDatos(medico);
-            new DataMedico().UpdMedico(medico);
-            return true;
-        }
+        private IRepositorySimpleRecord<Medic, int> RepoMedic = new MedicRepository();
 
-        public bool CrearMedico(Medico medico)
-        {
-            this.ValidarDatos(medico);
-            new DataMedico().AddMedico(medico);
-            return true;
-        }
-
-        public bool EliminarMedico(int id)
-        {
-            new DataMedico().DelMedico(id);
-            return true;
-        }
 
         public static string FormatearNombre(Medico medico)
         {
@@ -34,7 +19,7 @@ namespace MinLab.Code.LogicLayer
         public Dictionary<int, string> ObtenerListaGeneral()
         {
             Dictionary<int, string> dictionary = new Dictionary<int, string>();
-            foreach (Medico medico in new DataMedico().GetAllMedico().Values)
+            foreach (Medic medico in new DataMedico().GetAllMedico().Values)
             {
                 dictionary.Add(medico.IdData, medico.PrimerApellido + " " + medico.SegundoApellido + ", " + medico.Nombre);
             }

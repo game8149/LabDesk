@@ -1,5 +1,5 @@
-using EntityLab.Code.Hospital;
-using EntityLab.Code.Hospital.Analisis;
+using Entity.Code.Hospital;
+using Entity.Code.Hospital.Analisis;
 using LabDesk.Code.Components.Laboratory.Orden;
 using LabDesk.Code.Forms;
 using System.Windows.Forms;
@@ -52,7 +52,7 @@ namespace LabDesk.Code.Components.Main.Panels
         private void LinkAbrirPerfil_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ExamOrder orden = null;
-            Paciente perfil = null;
+            Patient perfil = null;
             FormOrdenBuscar buscar1 = new FormOrdenBuscar();
             buscar1.ShowDialog();
             orden = buscar1.ExamOrder;

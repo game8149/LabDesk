@@ -71,9 +71,9 @@
       <Project>{F2E3A6E0-94E9-4579-A29F-94C6C605EF14}</Project>
       <Name>DataManager</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EntityLab\EntityLab.csproj">
+    <ProjectReference Include="..\EntityLab\Entity.csproj">
       <Project>{D0D482FE-FACB-4106-A8D2-206089B092EE}</Project>
-      <Name>EntityLab</Name>
+      <Name>Entity</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

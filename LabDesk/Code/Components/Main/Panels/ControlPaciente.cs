@@ -1,4 +1,4 @@
-using EntityLab.Code.Hospital;
+using Entity.Code.Hospital;
 using LabDesk.Code.Components.Actors.Paciente;
 using LabDesk.Code.Forms;
 using System.Windows.Forms;
@@ -30,7 +30,7 @@ namespace LabDesk.Code.Components.Main.Panels
 
         private void LinkAbrirPerfil_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Paciente perfil = null;
+            Patient perfil = null;
             FormBuscarPaciente paciente1 = new FormBuscarPaciente();
             paciente1.ShowDialog();
             perfil = paciente1.Perfil;
