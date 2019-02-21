@@ -9,18 +9,16 @@ namespace Entity.Code.Business
         [Key]
         public int Id { get; set; }
 
-
-        public string HistorialCode { get; set; }
+        public string HistoryCode { get; set; }
         public PatientState State { get; set; }
 
         public enum PatientState
         {
-            Normal= 0,
+            Normal = 0,
             Gestante = 3,
             Enfermo = 1,
             Terminal = 2
         }
-
 
         public bool Validate()
         {

@@ -1,6 +1,5 @@
-﻿using DataManager.Recursos;
-using Entity.Code.Base.FilterStructure;
-using Entity.Code.Interfaces;
+﻿using DataManager.Code.Interfaces;
+using DataManager.Recursos;
 using Entity.Code.Management;
 using System;
 using System.Collections.Generic;
@@ -12,11 +11,10 @@ namespace DataManager.Code.Repositories
 {
     public class AccountRepository : IEntityRepository<Account, int>
     {
-        IEntityRepository<AccountSecurity, int> SecurityRepo = new AccountSecurityRepository();
+        AccountSecurityRepository AccountSecurityRepo = new AccountSecurityRepository();
 
         public void Add(Account entity)
         {
-
             SqlConnection connection = new SqlConnection
             {
                 ConnectionString = DataConfig.Default.ConnectionString
@@ -55,46 +53,7 @@ namespace DataManager.Code.Repositories
             }
         }
 
-        //
-        /// <summary>
-        /// Only inhabilite account
-        /// </summary>
-        /// <param name="id"></param>
-        /// 
-
-        public void Delete(int id)
-        {
-            SqlConnection connection = new SqlConnection
-            {
-                ConnectionString = DataConfig.Default.ConnectionString
-            };
-            SqlCommand command = new SqlCommand
-            {
-                Connection = connection,
-                CommandText = ProcAdd.ADD_CUENTA,
-                CommandType = CommandType.StoredProcedure
-            };
-
-            try
-            {
-                command.Parameters.Add(new SqlParameter { ParameterName = "@id", SqlValue = id, SqlDbType = SqlDbType.Int });
-                command.Connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                Debug.Print(ex.Message);
-            }
-            finally
-            {
-                if (connection != null)
-                    connection.Close();
-                if (command != null)
-                    command.Dispose();
-            }
-        }
-
-        public Account Select(int id)
+        public Account Get(int id)
         {
             Account entity = null;
             SqlConnection connection = new SqlConnection
@@ -123,14 +82,7 @@ namespace DataManager.Code.Repositories
                         Surnames = (string)reader["surnames"],
                         Password = (string)reader["password"],
                         Email = (string)reader["email"],
-                        Phone = (string)reader["phone"],
-                        CurrentSecurity = SecurityRepo.Select(
-                            new FilterParameter[] {
-                                new FilterParameter {
-                                    Index = 0, Value = (string)reader["tag"], Type = Type.GetType("String")
-                                }
-                            }
-                            )
+                        Phone = (string)reader["phone"]
                     };
                 }
 
@@ -264,34 +216,13 @@ namespace DataManager.Code.Repositories
             return flag;
         }
 
-        public IDictionary<int, Account> SelectDic()
+        public int Save(Account entity)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Account> SelectList()
+        public int Remove(Account obj)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Account> SelectList(FilterParameter[] parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Account> SelectDic(FilterParameter[] parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DataTable SelectTable(FilterParameter[] parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Account Select(FilterParameter[] parameters)
-        {
-            Account entity = null;
             SqlConnection connection = new SqlConnection
             {
                 ConnectionString = DataConfig.Default.ConnectionString
@@ -299,29 +230,15 @@ namespace DataManager.Code.Repositories
             SqlCommand command = new SqlCommand
             {
                 Connection = connection,
-                CommandText = ProcGet.GET_CUENTA,
+                CommandText = ProcAdd.ADD_CUENTA,
                 CommandType = CommandType.StoredProcedure
             };
 
             try
             {
+                command.Parameters.Add(new SqlParameter { ParameterName = "@id", SqlValue = obj.Id, SqlDbType = SqlDbType.Int });
                 command.Connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    entity = new Account
-                    {
-                        Id = (int)reader["id"],
-                        Tag = (string)reader["tag"],
-                        Name = (string)reader["name"],
-                        Surnames = (string)reader["surnames"],
-                        Password = (string)reader["password"],
-                        Email = (string)reader["email"],
-                        Phone = (string)reader["phone"],
-                        CurrentSecurity = SecurityRepo.Select((int)reader["id"])
-                    };
-                }
-                reader.Close();
+                command.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -334,21 +251,35 @@ namespace DataManager.Code.Repositories
                 if (command != null)
                     command.Dispose();
             }
-
-            return entity;
+            return 1;
         }
 
-        IDictionary<int, Account> IEntityRepository<Account, int>.SelectDic(FilterParameter[] parameters)
+        public int Check(Account obj)
         {
             throw new NotImplementedException();
         }
 
-        int IEntityRepository<Account, int>.Add(Account entity)
+        public IEnumerable<Account> List()
         {
             throw new NotImplementedException();
         }
 
-        int IEntityRepository<Account, int>.Update(Account entity)
+        public IEnumerable<Account> List(Account obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDictionary<int, Account> Index()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDictionary<int, Account> Index(Account obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataTable GetTable(Account obj)
         {
             throw new NotImplementedException();
         }

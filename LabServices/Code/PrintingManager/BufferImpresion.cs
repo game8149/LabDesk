@@ -1,15 +1,16 @@
+using Entity.Code.Analysis.Templates.Print;
 using System.Collections.Generic;
 
-namespace LogicLab.Code.PrintingManager
+namespace LabServices.Code.PrintingManager
 {
     public class BufferImpresion
     {
-        private List<FormatoImpresion> formatos = new List<FormatoImpresion>();
+        private List<TemplatePrint> formatos = new List<TemplatePrint>();
         private int indexFormatoActual;
         private int indexLineaActual;
         private int indexPagActual;
 
-        public BufferImpresion(List<FormatoImpresion> Formatos)
+        public BufferImpresion(List<TemplatePrint> Formatos)
         {
             this.formatos = Formatos;
             this.indexFormatoActual = -1;
@@ -27,7 +28,7 @@ namespace LogicLab.Code.PrintingManager
         public bool EmptyListPagina() => 
             (this.indexPagActual >= this.formatos[this.indexFormatoActual].Paginas.Count);
 
-        public FormatoImpresion GetFormato()
+        public TemplatePrint GetFormato()
         {
             if (!this.EmptyListFormato())
             {
@@ -36,7 +37,7 @@ namespace LogicLab.Code.PrintingManager
             return null;
         }
 
-        public FormatoImpresionPaginaLinea GetLinea()
+        public TemplatePrintPageLine GetLinea()
         {
             if ((!this.EmptyListFormato() && !this.EmptyListPagina()) && !this.EmptyListLinea())
             {
@@ -45,7 +46,7 @@ namespace LogicLab.Code.PrintingManager
             return null;
         }
 
-        public FormatoImpresionPagina GetPagina()
+        public TemplatePrintPage GetPagina()
         {
             if (!this.EmptyListFormato() && !this.EmptyListPagina())
             {

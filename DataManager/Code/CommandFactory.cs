@@ -5,7 +5,7 @@ namespace DataManager.Code
 {
     public class CommandFactory
     {
-        IEntityRepository<Account, int> repo;
+        IEntityRecord<Account, int> repo;
         public CommandFactory()
         {
             

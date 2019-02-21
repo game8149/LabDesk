@@ -33,45 +33,46 @@ namespace Utilities.Code
                 }
                 num3 += DateTime.DaysInMonth(year, month);
             }
-            return new DataEstaticaGeneral.Tiempo { 
-                Año = num,
-                Dias = num3,
-                Mes = num2
+            return new TimeElapse 
+            {
+                Years = num,
+                Months = num2,
+                Days = num3
             };
         }
 
-        public static string FormatoEdad(Tiempo edad)
+        public static string FormatoEdad(TimeElapse edad)
         {
             bool flag = false;
             bool flag2 = false;
             StringBuilder builder = new StringBuilder();
-            if (edad.Año > 1)
+            if (edad.Years > 1)
             {
-                builder.Append(edad.Año + " a\x00f1os ");
+                builder.Append(edad.Years + " a\x00f1os ");
             }
             else
             {
-                if (flag = edad.Año == 1)
+                if (flag = edad.Years == 1)
                 {
-                    builder.Append(edad.Año + " a\x00f1o ");
+                    builder.Append(edad.Years + " a\x00f1o ");
                 }
-                if (edad.Mes > 1)
+                if (edad.Months > 1)
                 {
-                    builder.Append(edad.Mes + " meses ");
+                    builder.Append(edad.Months + " meses ");
                 }
                 else
                 {
-                    if (flag2 = edad.Mes == 1)
+                    if (flag2 = edad.Months == 1)
                     {
-                        builder.Append(edad.Mes + " mes ");
+                        builder.Append(edad.Months + " mes ");
                     }
-                    if ((edad.Dias > 1) || (!flag2 && !flag))
+                    if ((edad.Days > 1) || (!flag2 && !flag))
                     {
-                        builder.Append(edad.Dias + " d\x00edas");
+                        builder.Append(edad.Days + " d\x00edas");
                     }
-                    else if (edad.Dias == 1)
+                    else if (edad.Days == 1)
                     {
-                        builder.Append(edad.Dias + " d\x00eda");
+                        builder.Append(edad.Days + " d\x00eda");
                     }
                 }
             }

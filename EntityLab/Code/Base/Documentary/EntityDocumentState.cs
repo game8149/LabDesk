@@ -14,7 +14,7 @@ namespace Entity.Code.Base.Documentary
         public enum DocumentState
         {
             Pending = 0,
-            OnProcess = 1,
+            OnProgress = 1,
             Terminated = 2
         }
     }

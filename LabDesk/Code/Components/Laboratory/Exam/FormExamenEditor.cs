@@ -283,7 +283,7 @@ namespace LabDesk.Code.Components.Laboratory.Exam
         private void ComponenteUI_Click(object sender, EventArgs e)
         {
             LabDesk.Code.LogicLayer.LogicaExamen.LogicaExamen examen = new LabDesk.Code.LogicLayer.LogicaExamen.LogicaExamen();
-            LogicaOrden orden = new LogicaOrden();
+            ExamOrderBL orden = new ExamOrderBL();
             ConfiguracionExamen.GetInstance().Loading = true;
             LogicaControlSistema sistema1 = new LogicaControlSistema();
             if (!sistema1.GetPase())
@@ -357,7 +357,7 @@ namespace LabDesk.Code.Components.Laboratory.Exam
 
         private void FormExamenGeneral_FormClosing(object sender, FormClosingEventArgs e)
         {
-            new LogicaOrden().ActualizarOrden(this.examenes, this.orden);
+            new ExamOrderBL().ActualizarOrden(this.examenes, this.orden);
         }
 
         private void formExamenGeneral_Load(object sender, EventArgs e)

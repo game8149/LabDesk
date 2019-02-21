@@ -1,9 +1,7 @@
 
 using DataManager;
+using DataManager.Code.Interfaces;
 using DataManager.Recursos;
-using Entity.Code.Base;
-using Entity.Code.Base.FilterStructure;
-using Entity.Code.Interfaces;
 using Entity.Code.Location;
 using System;
 using System.Collections.Generic;
@@ -15,27 +13,22 @@ namespace MinLab.Code.DataLayer
 
     public class UbigeoRespository : IEntityRepository<Ubigeo,string>
     {
-        public void Add(Ubigeo entity)
+        public int Check(Ubigeo obj)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(string id)
+        public Ubigeo Get(string id)
         {
             throw new NotImplementedException();
         }
 
-        public Ubigeo Select(string id)
+        public DataTable GetTable(Ubigeo obj)
         {
             throw new NotImplementedException();
         }
 
-        public Ubigeo Select(FilterParameter[] parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDictionary<string, Ubigeo> SelectDic()
+        public IDictionary<string, Ubigeo> Index()
         {
             Ubigeo entity = null;
             Dictionary<string, Ubigeo> dictionary = new Dictionary<string, Ubigeo>();
@@ -67,27 +60,27 @@ namespace MinLab.Code.DataLayer
             return dictionary;
         }
 
-        public IDictionary<string, Ubigeo> SelectDic(FilterParameter[] parameters)
+        public IDictionary<string, Ubigeo> Index(Ubigeo obj)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Ubigeo> SelectList()
+        public IEnumerable<Ubigeo> List()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Ubigeo> SelectList(FilterParameter[] parameters)
+        public IEnumerable<Ubigeo> List(Ubigeo obj)
         {
             throw new NotImplementedException();
         }
 
-        public DataTable SelectTable(FilterParameter[] parameters)
+        public int Remove(Ubigeo obj)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Ubigeo entity)
+        public int Save(Ubigeo entity)
         {
             throw new NotImplementedException();
         }

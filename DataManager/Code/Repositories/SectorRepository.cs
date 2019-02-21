@@ -1,7 +1,6 @@
-﻿using DataManager.Recursos;
-using EntityLab.Code.Base;
-using EntityLab.Code.Interfaces;
-using EntityLab.Code.Location;
+﻿using DataManager.Code.Interfaces;
+using DataManager.Recursos;
+using Entity.Code.Location;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,24 +8,49 @@ using System.Data.SqlClient;
 
 namespace DataManager.Code.Repositories
 {
-    public class SectorRepository : IRepositorySimpleRecord<UbigeoSector, int>
+    public class SectorRepository : IEntityRepository<UbigeoSector, int>
     {
-        public void Add(UbigeoSector entity)
+        public int Check(UbigeoSector obj)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public UbigeoSector Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public UbigeoSector Select(int id)
+        public DataTable GetTable(UbigeoSector obj)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<UbigeoSector> SelectList()
+        public IDictionary<int, UbigeoSector> Index()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDictionary<int, UbigeoSector> Index(UbigeoSector obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<UbigeoSector> List()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<UbigeoSector> List(UbigeoSector obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Remove(UbigeoSector obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Save(UbigeoSector entity)
         {
             throw new NotImplementedException();
         }
@@ -63,30 +87,6 @@ namespace DataManager.Code.Repositories
             command.Dispose();
             return dictionary;
         }
-
-        public void Update(UbigeoSector entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UbigeoSector Select(FilterParameter[] parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<UbigeoSector> SelectList(FilterParameter[] parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDictionary<int, UbigeoSector> SelectDic(FilterParameter[] parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DataTable SelectTable(FilterParameter[] parameters)
-        {
-            throw new NotImplementedException();
-        }
+         
     }
 }

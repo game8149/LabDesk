@@ -55,7 +55,7 @@ namespace LabDesk.Code.Components.Main.Panels
 
         private void CargarDatosEnDGVOrden()
         {
-            LogicaOrden orden = new LogicaOrden();
+            ExamOrderBL orden = new ExamOrderBL();
             LogicaPaciente paciente = new LogicaPaciente();
             this.ordenes = orden.ObtenerOrdenesByFechaByEstado(this.PickerInit.Value, this.PickerEnd.Value, (ExamOrder.DocumentState) this.ComboEstado.SelectedIndex);
             this.tabla.Clear();

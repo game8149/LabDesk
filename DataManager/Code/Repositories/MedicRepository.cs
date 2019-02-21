@@ -1,8 +1,7 @@
 ﻿using DataManager.Code.Base;
+using DataManager.Code.Interfaces;
 using DataManager.Recursos;
-using Entity.Code.Base.FilterStructure;
 using Entity.Code.Business;
-using Entity.Code.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,8 +9,23 @@ using System.Data.SqlClient;
 
 namespace DataManager.Code.Repositories
 {
-    public class MedicRepository : RepositoryBase, IEntitySimpeRepository<Medic, int>
+    public class MedicRepository : RepositoryBase, IEntityRepository<Medic, int>
     {
+        public override void FillObject(object entity, SqlDataReader reader)
+        {
+            Medic medico = (Medic)entity;
+            medico.Id = (int)reader["id"];
+            medico.Names = (string)reader["names"];
+            medico.FirstSurname = (string)reader["firstSurname"];
+            medico.LastSurname = (string)reader["lastSurname"];
+            medico.Sex = (Person.SexType)reader["sex"];
+            medico.DocumentNumber = (string)reader["documentNumber"];
+            medico.BirthDate = (DateTime)reader["birthDate"];
+            medico.IdEspecialidad = (string)reader["idEspecialidad"];
+            medico.CodigoColegiatura = (string)reader["codigoColegiatura"];
+            medico.Habil = (bool)reader["habil"];
+        }
+
         public int Save(Medic entity)
         {
             using (SqlConnection connection = new SqlConnection(DataConfig.Default.ConnectionString))
@@ -32,33 +46,31 @@ namespace DataManager.Code.Repositories
                     command.ExecuteNonQuery();
                 }
             }
-
             return -1;
         }
 
-        public int Delete(int id)
+        public int Remove(Medic obj)
         {
             using (SqlConnection connection = new SqlConnection(DataConfig.Default.ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand { Connection = connection, CommandText = ProcAdd.ADD_MEDICO, CommandType = CommandType.StoredProcedure })
                 {
-                    command.Parameters.Add(new SqlParameter { ParameterName = "@id", SqlValue = id, SqlDbType = SqlDbType.Int });
+                    command.Parameters.Add(new SqlParameter { ParameterName = "@id", SqlValue = obj.Id, SqlDbType = SqlDbType.Int });
                     command.Connection.Open();
-                    command.ExecuteNonQuery(); 
+                    command.ExecuteNonQuery();
                 }
             }
-
             return -1;
         }
 
-        public IEnumerable<Medic> SelectList()
+        public int Check(Medic obj)
         {
-            throw new Exception();
+            throw new NotImplementedException();
         }
 
-        public Medic Select(int id)
+        public Medic Get(int id)
         {
-            Medic medico = null; 
+            Medic medico = null;
             using (SqlConnection connection = new SqlConnection(DataConfig.Default.ConnectionString))
             {
                 using (SqlCommand command = new SqlCommand { Connection = connection, CommandText = ProcAdd.ADD_MEDICO, CommandType = CommandType.StoredProcedure })
@@ -73,27 +85,26 @@ namespace DataManager.Code.Repositories
                     }
                 }
             }
-             
+
             return medico;
         }
 
-        public IDictionary<int, Medic> SelectDic()
+        public IEnumerable<Medic> List()
         {
             throw new NotImplementedException();
         }
 
-
-        public Medic Select(FilterParameter[] parameters)
+        public IEnumerable<Medic> List(Medic obj)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Medic> SelectList(FilterParameter[] parameters)
+        public IDictionary<int, Medic> Index()
         {
             throw new NotImplementedException();
         }
 
-        public IDictionary<int, Medic> SelectDic(FilterParameter[] parameters)
+        public IDictionary<int, Medic> Index(Medic obj)
         {
             IDictionary<int, Medic> dictionary = new Dictionary<int, Medic>();
             using (SqlConnection connection = new SqlConnection(DataConfig.Default.ConnectionString))
@@ -110,11 +121,10 @@ namespace DataManager.Code.Repositories
                     }
                 }
             }
-
             return dictionary;
         }
-          
-        public DataTable SelectTable(FilterParameter[] parameters)
+
+        public DataTable GetTable(Medic obj)
         {
             DataTable dataResult = new DataTable();
             using (SqlConnection connection = new SqlConnection(DataConfig.Default.ConnectionString))
@@ -126,23 +136,7 @@ namespace DataManager.Code.Repositories
                     adapter.Fill(dataResult);
                 }
             }
-
             return dataResult;
-        }
-
-        public override void FillObject(object entity, SqlDataReader reader)
-        {
-            Medic medico = (Medic)entity; 
-            medico.Id = (int)reader["id"];
-            medico.Names = (string)reader["names"];
-            medico.FirstSurname = (string)reader["firstSurname"];
-            medico.LastSurname = (string)reader["lastSurname"];
-            medico.Sex = (Person.SexType)reader["sex"];
-            medico.DocumentNumber = (string)reader["documentNumber"];
-            medico.BirthDate = (DateTime)reader["birthDate"];
-            medico.IdEspecialidad = (string)reader["idEspecialidad"];
-            medico.CodigoColegiatura = (string)reader["codigoColegiatura"];
-            medico.Habil = (bool)reader["habil"]; 
         }
     }
 }

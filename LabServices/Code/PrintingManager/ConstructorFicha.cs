@@ -1,10 +1,19 @@
+using Entity.Code.Analysis;
+using Entity.Code.Analysis.Templates;
+using Entity.Code.Analysis.Templates.Print;
+using Entity.Code.Business;
+using Entity.Code.Management;
+using Entity.Code.Static;
+using MinLab.Code.LogicLayer;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Windows;
+using System.Windows.Media;
+using static Entity.Code.Static.DataEstaticaGeneral;
 
-
-namespace LogicLab.Code.PrintingManager
+namespace LabServices.Code.PrintingManager
 {
     public class ConstructorFicha
     {
@@ -25,7 +34,7 @@ namespace LogicLab.Code.PrintingManager
             double num = 0.0;
             foreach (string str in text.Split(separator, StringSplitOptions.None))
             {
-                FormattedText text2 = new FormattedText(str, CultureInfo.CurrentCulture, System.Windows.FlowDirection.LeftToRight, new Typeface(fontFamily), (double) emSize, System.Windows.Media.Brushes.Black);
+                FormattedText text2 = new FormattedText(str, CultureInfo.CurrentCulture, System.Windows.FlowDirection.LeftToRight, new Typeface(fontFamily), (double)emSize, System.Windows.Media.Brushes.Black);
                 builder.Append(str + " ");
                 num += text2.Width;
                 if (num > pixels)
@@ -42,85 +51,88 @@ namespace LogicLab.Code.PrintingManager
             return list;
         }
 
-        public FormatoImpresion CrearAllDocumento(Dictionary<int, Examen> examenes, Orden orden, float tamañoFuente, System.Drawing.Size tamañoPag)
+        public TemplatePrint CrearAllDocumento(Dictionary<int, ExamResult> examenes, ExamOrder orden, float tamañoFuente, Size tamañoPag)
         {
             Clasificador clasificador = new Clasificador();
             tamañoPag.Height /= 2;
             tamañoPag.Width /= 2;
-            Paciente pac = new MinLab.Code.LogicLayer.LogicaPaciente.LogicaPaciente().ObtenerPerfilPorId(orden.IdPaciente);
+            Patient pac = new MinLab.Code.LogicLayer.LogicaPaciente.LogicaPaciente().ObtenerPerfilPorId(orden.IdPaciente);
             int id = 0;
             DateTime minValue = DateTime.MinValue;
-            foreach (Examen examen in examenes.Values)
+            foreach (ExamResult examen in examenes.Values)
             {
-                Area area = (Area) Plantillas.GetInstance().GetPlantilla(examen.IdPlantilla).Area;
+                Area area = (Area)Plantillas.GetInstance().GetPlantilla(examen.IdPlantilla).Area;
                 this.repositorio[area].Add(examen.IdData);
-                if (examen.UltimaModificacion >= minValue)
+                if (examen.LastUpdatedTime >= minValue)
                 {
-                    minValue = examen.UltimaModificacion;
-                    id = examen.IdCuenta;
+                    minValue = examen.LastUpdatedTime;
+                    id = examen.AccountUpdate;
                 }
             }
-            FormatoImpresion impresion = new FormatoImpresion();
-            FormatoImpresionCabecera cabecera = new FormatoImpresionCabecera();
-            new Dictionary<int, FormatoImpresionPagina>();
+            TemplatePrint impresion = new TemplatePrint();
+            TemplatePrintHead cabecera = new TemplatePrintHead();
+            new Dictionary<int, TemplatePrintPage>();
             Medico medico = new BLMedico().ObtenerMedico(orden.IdMedico);
-            Cuenta cuenta = new LogicaCuenta().ObtenerCuenta(id);
+            Account cuenta = new LogicaCuenta().ObtenerCuenta(id);
             DataEstaticaGeneral.Tiempo edad = Utilidad.CalcularEdad(pac.FechaNacimiento);
             cabecera.Edad = Utilidad.FormatoEdad(edad);
             cabecera.Orden = "No " + orden.IdData;
-            string[] textArray1 = new string[] { pac.Nombre, " ", pac.PrimerApellido, " ", pac.SegundoApellido };
+            string[] textArray1 = new string[] { pac.Names, " ", pac.FirstSurname, " ", pac.LastSurname };
             cabecera.Nombre = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(string.Concat(textArray1));
-            cabecera.Historia = pac.Historia;
+            cabecera.Historia = pac.HistoryCode;
             string[] textArray2 = new string[] { cuenta.Nombre, " ", cuenta.PrimerApellido, " ", cuenta.SegundoApellido, " - ", cuenta.Especialidad };
             cabecera.Responsable = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(string.Concat(textArray2));
             string[] textArray3 = new string[] { medico.Nombre, " ", medico.PrimerApellido, " ", medico.SegundoApellido };
             cabecera.Doctor = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(string.Concat(textArray3));
             cabecera.UltimaRev = minValue.ToShortDateString();
             impresion.Cabecera = cabecera;
-            Dictionary<int, FormatoImpresionPaginaLinea> dictionary = null;
-            FormatoImpresionPagina pagina = null;
-            FormatoImpresionPaginaLinea linea = null;
+            Dictionary<int, TemplatePrintPageLine> dictionary = null;
+            TemplatePrintPage pagina = null;
+            TemplatePrintPageLine linea = null;
             int key = 0;
             foreach (Area area2 in this.repositorio.Keys)
             {
                 if (this.repositorio[area2].Count > 0)
                 {
-                    pagina = new FormatoImpresionPagina();
-                    dictionary = new Dictionary<int, FormatoImpresionPaginaLinea>();
+                    pagina = new TemplatePrintPage();
+                    dictionary = new Dictionary<int, TemplatePrintPageLine>();
                     pagina.Detalles = dictionary;
                     key = 0;
-                    linea = new FormatoImpresionPaginaLinea {
-                        Nombre = "LABORATORIO DE " + DataEstaticaGeneral.Areas[(int) area2],
-                        TipoLinea = FormatoImpresionPaginaLinea.TipoPaginaLinea.TituloArea
+                    linea = new TemplatePrintPageLine
+                    {
+                        Nombre = "LABORATORIO DE " + DataEstaticaGeneral.Areas[(int)area2],
+                        TipoLinea = TemplatePrintPageLine.PageLineType.TituloArea
                     };
                     dictionary.Add(key, linea);
                     key++;
                     foreach (int num3 in this.repositorio[area2])
                     {
-                        Examen examen2 = examenes[num3];
-                        linea = new FormatoImpresionPaginaLinea {
-                            Nombre = Plantillas.GetInstance().GetPlantilla(examen2.IdPlantilla).Nombre,
-                            TipoLinea = FormatoImpresionPaginaLinea.TipoPaginaLinea.TituloExamen
+                        ExamResult examen2 = examenes[num3];
+                        linea = new TemplatePrintPageLine
+                        {
+                            Nombre = TemplateBL.GetInstance().GetPlantilla(examen2.IdPlantilla).Nombre,
+                            TipoLinea = TemplatePrintPageLine.PageLineType.TituloExamen
                         };
                         dictionary.Add(key, linea);
                         key++;
-                        Dictionary<int, PlantillaFila> filas = Plantillas.GetInstance().GetPlantilla(examen2.IdPlantilla).Filas;
+                        Dictionary<int, TemplateRow> filas = Plantillas.GetInstance().GetPlantilla(examen2.IdTemplate).Filas;
                         for (int i = 0; i < filas.Count; i++)
                         {
-                            PlantillaItem item;
+                            TemplateAsk item;
                             string str2;
                             List<string> list2;
                             int num7;
-                            PlantillaFila.PlantillaFilaTipo tipo = filas[i].Tipo;
-                            if (tipo == PlantillaFila.PlantillaFilaTipo.Simple)
+                            TemplateRow.TemplateRowType tipo = filas[i].Type;
+                            if (tipo == TemplateRow.TemplateRowType.Singled)
                             {
-                                item = ((PlantillaFilaSimple) filas[i]).Item;
+                                item = ((PlantillaFilaSimple)filas[i]).Item;
                                 switch (item.TipoCampo)
                                 {
                                     case TipoCampo.Input:
-                                        linea = new FormatoImpresionPaginaLinea {
+                                        linea = new TemplatePrintPageLine
+                                        {
                                             Nombre = item.Nombre,
-                                            TipoLinea = FormatoImpresionPaginaLinea.TipoPaginaLinea.ItemSimple,
+                                            TipoLinea = TemplatePrintPageLine.TipoPaginaLinea.ItemSimple,
                                             Resultado = examen2.DetallesByItem[item.IdData].Campo.ToString()
                                         };
                                         if (item.TieneUnidad)
@@ -139,9 +151,10 @@ namespace LogicLab.Code.PrintingManager
                                         goto Label_082D;
 
                                     case TipoCampo.Lista:
-                                        linea = new FormatoImpresionPaginaLinea {
+                                        linea = new TemplatePrintPageLine
+                                        {
                                             Nombre = item.Nombre,
-                                            TipoLinea = FormatoImpresionPaginaLinea.TipoPaginaLinea.ItemSimple,
+                                            TipoLinea = TemplatePrintPageLine.TipoPaginaLinea.ItemSimple,
                                             Resultado = item.OpcionesByIndice[Convert.ToInt32(examen2.DetallesByItem[item.IdData].Campo)]
                                         };
                                         dictionary.Add(key, linea);
@@ -153,20 +166,22 @@ namespace LogicLab.Code.PrintingManager
                                         {
                                             break;
                                         }
-                                        linea = new FormatoImpresionPaginaLinea {
+                                        linea = new TemplatePrintPageLine
+                                        {
                                             Nombre = item.Nombre
                                         };
                                         str2 = "";
-                                        list2 = AcoplarTexto(linea.Nombre + ": " + examen2.DetallesByItem[item.IdData].Campo, "Futura Bk BT", 7.5f, (double) tamañoPag.Width);
+                                        list2 = AcoplarTexto(linea.Nombre + ": " + examen2.DetallesByItem[item.IdData].Campo, "Futura Bk BT", 7.5f, (double)tamañoPag.Width);
                                         num7 = 0;
                                         goto Label_098C;
                                 }
                             }
                             else if (tipo == PlantillaFila.PlantillaFilaTipo.Agrupada)
                             {
-                                PlantillaFilaGrupo grupo = (PlantillaFilaGrupo) filas[i];
-                                linea = new FormatoImpresionPaginaLinea {
-                                    TipoLinea = FormatoImpresionPaginaLinea.TipoPaginaLinea.TituloGrupo,
+                                PlantillaFilaGrupo grupo = (PlantillaFilaGrupo)filas[i];
+                                linea = new TemplatePrintPageLine
+                                {
+                                    TipoLinea = TemplatePrintPageLine.TipoPaginaLinea.TituloGrupo,
                                     Nombre = grupo.Nombre
                                 };
                                 dictionary.Add(key, linea);
@@ -175,8 +190,9 @@ namespace LogicLab.Code.PrintingManager
                                 {
                                     foreach (PlantillaItem item2 in grupo.Items.Values)
                                     {
-                                        linea = new FormatoImpresionPaginaLinea {
-                                            TipoLinea = FormatoImpresionPaginaLinea.TipoPaginaLinea.ItemSimple,
+                                        linea = new TemplatePrintPageLine
+                                        {
+                                            TipoLinea = TemplatePrintPageLine.TipoPaginaLinea.ItemSimple,
                                             Nombre = " * " + item2.Nombre
                                         };
                                         int num5 = Convert.ToInt32(examen2.DetallesByItem[item2.IdData].Campo);
@@ -198,54 +214,57 @@ namespace LogicLab.Code.PrintingManager
                                         switch (item3.TipoCampo)
                                         {
                                             case TipoCampo.Input:
-                                            {
-                                                linea = new FormatoImpresionPaginaLinea {
-                                                    TipoLinea = FormatoImpresionPaginaLinea.TipoPaginaLinea.ItemSimple,
-                                                    Nombre = " * " + item3.Nombre,
-                                                    Resultado = examen2.DetallesByItem[item3.IdData].Campo.ToString()
-                                                };
-                                                if (item3.TieneUnidad)
                                                 {
-                                                    linea.Resultado = linea.Resultado + item3.Unidad;
+                                                    linea = new TemplatePrintPageLine
+                                                    {
+                                                        TipoLinea = TemplatePrintPageLine.TipoPaginaLinea.ItemSimple,
+                                                        Nombre = " * " + item3.Nombre,
+                                                        Resultado = examen2.DetallesByItem[item3.IdData].Campo.ToString()
+                                                    };
+                                                    if (item3.TieneUnidad)
+                                                    {
+                                                        linea.Resultado = linea.Resultado + item3.Unidad;
+                                                    }
+                                                    linea.Resultado = linea.Resultado + clasificador.Clasificar(pac, examen2.IdData, examen2.DetallesByItem[item3.IdData]);
+                                                    dictionary.Add(key, linea);
+                                                    key++;
+                                                    continue;
                                                 }
-                                                linea.Resultado = linea.Resultado + clasificador.Clasificar(pac, examen2.IdData, examen2.DetallesByItem[item3.IdData]);
-                                                dictionary.Add(key, linea);
-                                                key++;
-                                                continue;
-                                            }
                                             case TipoCampo.Lista:
-                                            {
-                                                linea = new FormatoImpresionPaginaLinea {
-                                                    TipoLinea = FormatoImpresionPaginaLinea.TipoPaginaLinea.ItemSimple,
-                                                    Nombre = " * " + item3.Nombre,
-                                                    Resultado = item3.OpcionesByIndice[Convert.ToInt32(examen2.DetallesByItem[item3.IdData].Campo)]
-                                                };
-                                                dictionary.Add(key, linea);
-                                                key++;
-                                                continue;
-                                            }
+                                                {
+                                                    linea = new TemplatePrintPageLine
+                                                    {
+                                                        TipoLinea = TemplatePrintPageLine.TipoPaginaLinea.ItemSimple,
+                                                        Nombre = " * " + item3.Nombre,
+                                                        Resultado = item3.OpcionesByIndice[Convert.ToInt32(examen2.DetallesByItem[item3.IdData].Campo)]
+                                                    };
+                                                    dictionary.Add(key, linea);
+                                                    key++;
+                                                    continue;
+                                                }
                                             case TipoCampo.Texto:
                                                 if (examen2.DetallesByItem[item3.IdData].Campo.Equals(""))
                                                 {
                                                     continue;
                                                 }
-                                                linea = new FormatoImpresionPaginaLinea {
-                                                    TipoLinea = FormatoImpresionPaginaLinea.TipoPaginaLinea.ItemSimple,
+                                                linea = new TemplatePrintPageLine
+                                                {
+                                                    TipoLinea = TemplatePrintPageLine.TipoPaginaLinea.ItemSimple,
                                                     Nombre = " * " + item3.Nombre
                                                 };
                                                 str = "";
-                                                list = AcoplarTexto(linea.Nombre + ": " + examen2.DetallesByItem[item3.IdData].Campo.ToString(), "Futura Bk BT", 7.5f, (double) tamañoPag.Width);
+                                                list = AcoplarTexto(linea.Nombre + ": " + examen2.DetallesByItem[item3.IdData].Campo.ToString(), "Futura Bk BT", 7.5f, (double)tamañoPag.Width);
                                                 num6 = 0;
                                                 goto Label_06E8;
 
                                             default:
-                                            {
-                                                continue;
-                                            }
+                                                {
+                                                    continue;
+                                                }
                                         }
                                     Label_068C:
-                                        linea = new FormatoImpresionPaginaLinea();
-                                        linea.TipoLinea = FormatoImpresionPaginaLinea.TipoPaginaLinea.ItemTexto;
+                                        linea = new TemplatePrintPageLine();
+                                        linea.TipoLinea = TemplatePrintPageLine.TipoPaginaLinea.ItemTexto;
                                         if (item3.TieneUnidad && ((key + 1) == list.Count))
                                         {
                                             str = str + item3.Unidad;
@@ -264,17 +283,17 @@ namespace LogicLab.Code.PrintingManager
                             }
                             continue;
                         Label_07FA:
-                            linea.Resultado = linea.Resultado + clasificador.Clasificar(pac, examen2.IdData, examen2.DetallesByItem[item.IdData]);
+                            linea.Resultado = linea.Resultado + clasificador.Clasificar(pac, examen2.Id, examen2.DetallesByItem[item.IdData]);
                         Label_082D:
                             dictionary.Add(key, linea);
                             key++;
                             continue;
                         Label_0930:
-                            linea = new FormatoImpresionPaginaLinea();
-                            linea.TipoLinea = FormatoImpresionPaginaLinea.TipoPaginaLinea.ItemTexto;
-                            if (item.TieneUnidad && ((num7 + 1) == list2.Count))
+                            linea = new TemplatePrintPageLine();
+                            linea.TipoLinea = TemplatePrintPageLine.PageLineType.ItemTexto;
+                            if (item.HasUnit && ((num7 + 1) == list2.Count))
                             {
-                                str2 = str2 + item.Unidad;
+                                str2 = str2 + item.Unit;
                             }
                             linea.Resultado = list2[num7];
                             dictionary.Add(key, linea);

@@ -1,6 +1,6 @@
-﻿using DataManager.Recursos;
+﻿using DataManager.Code.Interfaces;
+using DataManager.Recursos;
 using Entity.Code.Base.FilterStructure;
-using Entity.Code.Interfaces;
 using Entity.Code.Management;
 using System;
 using System.Collections.Generic;
@@ -50,12 +50,12 @@ namespace DataManager.Code.Repositories
             }
         }
 
-        public void Delete(int id)
+        public int Check(AccountSecurity obj)
         {
             throw new NotImplementedException();
         }
 
-        public AccountSecurity Select(int id)
+        public AccountSecurity Get(int id)
         {
             AccountSecurity obj = null;
             SqlConnection connection = new SqlConnection
@@ -102,12 +102,37 @@ namespace DataManager.Code.Repositories
             return obj;
         }
 
-        public IEnumerable<AccountSecurity> SelectList()
+        public DataTable GetTable(AccountSecurity obj)
         {
             throw new NotImplementedException();
         }
 
-        public IDictionary<int, AccountSecurity> SelectDic()
+        public IDictionary<int, AccountSecurity> Index()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDictionary<int, AccountSecurity> Index(AccountSecurity obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<AccountSecurity> List()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<AccountSecurity> List(AccountSecurity obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Remove(AccountSecurity obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Save(AccountSecurity entity)
         {
             throw new NotImplementedException();
         }
@@ -135,27 +160,6 @@ namespace DataManager.Code.Repositories
             connection.Close();
             command.Dispose();
         }
-
-        public AccountSecurity Select(FilterParameter[] parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<AccountSecurity> SelectList(FilterParameter[] parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDictionary<int, AccountSecurity> SelectDic(FilterParameter[] parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DataTable SelectTable(FilterParameter[] parameters)
-        {
-            throw new NotImplementedException();
-        }
-
-      
+         
     }
 }

@@ -60,35 +60,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Test.xaml.cs">
-      <DependentUpon>Test.xaml</DependentUpon>
+    <Compile Include="ModelViews\Base\AnotherCommandImplementation.cs" />
+    <Compile Include="ModelViews\Base\DemoItem.cs" />
+    <Compile Include="ModelViews\Base\DocumentationLink.cs" />
+    <Compile Include="ModelViews\Base\DocumentationLinks.xaml.cs">
+      <DependentUpon>DocumentationLinks.xaml</DependentUpon>
     </Compile>
-    <Page Include="Base\ButtonUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Base\DataGridViewUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Base\WindowBase.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="ModelViews\Base\DocumentationLinkType.cs" />
+    <Compile Include="ModelViews\Base\MainWindowViewModel.cs" />
+    <Compile Include="ModelViews\Base\NotifyPropertyChangedExtension.cs" />
+    <Compile Include="Views\Main\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Base\ButtonUC.xaml.cs">
-      <DependentUpon>ButtonUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Base\DataGridViewUC.xaml.cs">
-      <DependentUpon>DataGridViewUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Base\WindowBase.xaml.cs">
-      <DependentUpon>WindowBase.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Test.xaml">
+    <Page Include="ModelViews\Base\DocumentationLinks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Main\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -119,6 +111,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ModelViews\Main\" />
+    <Folder Include="Views\Master\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

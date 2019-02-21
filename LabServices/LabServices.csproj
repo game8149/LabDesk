@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,16 +41,16 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\Catalogos\BLMedico.cs" />
-    <Compile Include="Code\Catalogos\BLTarifario.cs" />
-    <Compile Include="Code\Catalogos\BLUbicacion.cs" />
-    <Compile Include="Code\Catalogos\LogicaCuenta.cs" />
-    <Compile Include="Code\Catalogos\LogicaExamen.cs" />
-    <Compile Include="Code\Catalogos\LogicaOrden.cs" />
-    <Compile Include="Code\Catalogos\LogicaPaciente.cs" />
-    <Compile Include="Code\Catalogos\LogicoControlSistema.cs" />
+    <Compile Include="Code\MedicBL.cs" />
+    <Compile Include="Code\PriceListBL.cs" />
+    <Compile Include="Code\BLUbicacion.cs" />
+    <Compile Include="Code\LogicaCuenta.cs" />
+    <Compile Include="Code\ExamResultBL.cs" />
+    <Compile Include="Code\ExamOrderBL.cs" />
+    <Compile Include="Code\LogicaPaciente.cs" />
     <Compile Include="Code\PrintingManager\BufferImpresion.cs" />
     <Compile Include="Code\PrintingManager\ConstructorFicha.cs" />
     <Compile Include="Code\PrintingManager\ConstructorFichatest.cs" />
@@ -75,6 +76,9 @@
       <Project>{D0D482FE-FACB-4106-A8D2-206089B092EE}</Project>
       <Name>Entity</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Code\Catalogos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

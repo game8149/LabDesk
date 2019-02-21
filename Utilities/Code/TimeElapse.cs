@@ -3,10 +3,11 @@
 
     public class TimeElapse
     {
-        public int Año { get; set; }
+        public int Years { get; set; }
 
-        public int Dias { get; set; }
+        public int Months { get; set; }
 
-        public int Mes { get; set; }
+        public int Days { get; set; }
+
     }
 }

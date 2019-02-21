@@ -163,7 +163,7 @@ namespace LabDesk.Code.Components.Laboratory.Orden
       
         private void LlenarTablaOrdenes()
         {
-            LogicaOrden orden = new LogicaOrden();
+            ExamOrderBL orden = new ExamOrderBL();
             this.tablaOrden.Clear();
             this.diccionarioOrden = orden.ObtenerOrdenesByPacienteByFechaByEstado(this.Perfil, this.PickerInit.Value, this.PickerEnd.Value, (LabDesk.Code.EntityLayer.EOrden.ExamOrder.EstadoOrden)this.ComboEstado.SelectedIndex);
             base.SuspendLayout();

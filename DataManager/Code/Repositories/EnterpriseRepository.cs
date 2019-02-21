@@ -1,59 +1,53 @@
-﻿using EntityLab.Code.Base.FilterStructure;
-using EntityLab.Code.Business;
-using EntityLab.Code.Interfaces;
+﻿using DataManager.Code.Interfaces;
+using Entity.Code.Business;
 using System.Collections.Generic;
 using System.Data;
 
 namespace DataManager.Code.Repositories
 {
-    public class EnterpriseRepository : IRepositorySimpleRecord<Enterprise, int>
+    public class EnterpriseRepository : IEntityRepository<Enterprise, int>
     {
-        public void Add(Enterprise entity)
+        public int Check(Enterprise obj)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Delete(int id)
+        public Enterprise Get(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public Enterprise Select(int id)
+        public DataTable GetTable(Enterprise obj)
         {
             throw new System.NotImplementedException();
         }
 
-        public Enterprise Select(FilterParameter[] parameters)
+        public IDictionary<int, Enterprise> Index()
         {
             throw new System.NotImplementedException();
         }
 
-        public IDictionary<int, Enterprise> SelectDic()
+        public IDictionary<int, Enterprise> Index(Enterprise obj)
         {
             throw new System.NotImplementedException();
         }
 
-        public IDictionary<int, Enterprise> SelectDic(FilterParameter[] parameters)
+        public IEnumerable<Enterprise> List()
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Enterprise> SelectList()
+        public IEnumerable<Enterprise> List(Enterprise obj)
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Enterprise> SelectList(FilterParameter[] parameters)
+        public int Remove(Enterprise obj)
         {
             throw new System.NotImplementedException();
         }
 
-        public DataTable SelectTable(FilterParameter[] parameters)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Update(Enterprise entity)
+        public int Save(Enterprise entity)
         {
             throw new System.NotImplementedException();
         }

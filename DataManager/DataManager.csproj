@@ -41,9 +41,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\CommandFactory.cs" />
+    <Compile Include="Code\Interfaces\IEntityDetailRepository.cs" />
+    <Compile Include="Code\Interfaces\IEntityRepository.cs" />
     <Compile Include="Code\Repositories\AccountSecurityRepository.cs" />
+    <Compile Include="Code\Repositories\Analysis\PackageRepository.cs" />
+    <Compile Include="Code\Repositories\EnterpriseRepository.cs" />
+    <Compile Include="Code\Repositories\Analysis\ExamOrderRepository.cs" />
+    <Compile Include="Code\Repositories\Analysis\ExamResultRepository.cs" />
     <Compile Include="Code\Repositories\MedicRepository.cs" />
-    <Compile Include="Code\Repositories\RepositoryBase.cs" />
+    <Compile Include="Code\Repositories\Analysis\PriceListRepository.cs" />
+    <Compile Include="Code\Base\RepositoryBase.cs" />
+    <Compile Include="Code\Repositories\Analysis\Templates\TemplateAskDataRepository.cs" />
+    <Compile Include="Code\Repositories\Analysis\Templates\TemplateAskRepository.cs" />
+    <Compile Include="Code\Repositories\Analysis\Templates\TemplateRepository.cs" />
+    <Compile Include="Code\Repositories\Analysis\Templates\TemplateRowRepository.cs" />
+    <Compile Include="Code\Repositories\OfficeRepository.cs" />
+    <Compile Include="Code\Repositories\PatientRepository.cs" />
+    <Compile Include="Code\Repositories\SectorRepository.cs" />
     <Compile Include="Code\Repositories\UbigeoRespository.cs" />
     <Compile Include="DataConfig.Designer.cs">
       <AutoGen>True</AutoGen>

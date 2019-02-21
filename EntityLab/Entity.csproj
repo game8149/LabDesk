@@ -42,36 +42,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Analysis\Templates\Print\TemplatePrint.cs" />
+    <Compile Include="Code\Analysis\Templates\Print\TemplatePrintHead.cs" />
+    <Compile Include="Code\Analysis\Templates\Print\TemplatePrintPage.cs" />
+    <Compile Include="Code\Analysis\Templates\Print\TemplatePrintPageLine.cs" />
+    <Compile Include="Code\Static\DataEstaticaGeneral.cs" />
     <Compile Include="Code\Business\Medic.cs" />
     <Compile Include="Code\Business\Patient.cs" />
     <Compile Include="Code\Base\Documentary\EntityDocumentAble.cs" />
     <Compile Include="Code\Base\FilterStructure\FilterParameter.cs" />
     <Compile Include="Code\Base\FilterStructure\FilterParameterTableFactory.cs" />
-    <Compile Include="Code\Analisis\Package.cs" />
-    <Compile Include="Code\Analisis\PriceList.cs" />
-    <Compile Include="Code\Analisis\ExamResultDetail.cs" />
+    <Compile Include="Code\Analysis\Package.cs" />
+    <Compile Include="Code\Analysis\PriceList.cs" />
+    <Compile Include="Code\Analysis\ExamResultDetail.cs" />
     <Compile Include="Code\Business\Office.cs" />
-    <Compile Include="Code\Analisis\PriceListDetail.cs" />
-    <Compile Include="Code\Analisis\ExamResult.cs" />
-    <Compile Include="Code\Analisis\Templates\TemplateExam.cs" />
-    <Compile Include="Code\Analisis\Templates\TemplateExamAsk.cs" />
-    <Compile Include="Code\Analisis\Templates\TemplateExamAskData.cs" />
-    <Compile Include="Code\Analisis\Templates\TemplateExamRow.cs" />
+    <Compile Include="Code\Analysis\PriceListDetail.cs" />
+    <Compile Include="Code\Analysis\ExamResult.cs" />
+    <Compile Include="Code\Analysis\Templates\Template.cs" />
+    <Compile Include="Code\Analysis\Templates\TemplateAsk.cs" />
+    <Compile Include="Code\Analysis\Templates\TemplateRow.cs" />
     <Compile Include="Code\Base\Documentary\EntityDocument.cs" />
     <Compile Include="Code\Base\Documentary\EntityDocumentState.cs" />
     <Compile Include="Code\Base\Documentary\EntityDocumentCheck.cs" />
-    <Compile Include="Code\Interfaces\IEntitySimpleRepository.cs" />
     <Compile Include="Code\Management\AccountProfessional.cs" />
     <Compile Include="Code\Business\Enterprise.cs" />
-    <Compile Include="Code\Interfaces\IRepositoryDetailedRecord.cs" />
     <Compile Include="Code\Location\Ubigeo.cs" />
     <Compile Include="Code\Management\AccountSecurity.cs" />
     <Compile Include="Code\Management\Account.cs" />
     <Compile Include="Code\Business\Person.cs" />
-    <Compile Include="Code\Analisis\ExamOrder.cs" />
-    <Compile Include="Code\Analisis\ExamOrderDetail.cs" />
+    <Compile Include="Code\Analysis\ExamOrder.cs" />
+    <Compile Include="Code\Analysis\ExamOrderDetail.cs" />
     <Compile Include="Code\Location\UbigeoSector.cs" />
-    <Compile Include="Code\Interfaces\IEntityRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
