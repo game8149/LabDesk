@@ -1,38 +1,34 @@
-namespace Entity.Code.Analysis.Templates.Print
+namespace Entity.Code.Base.Print
 {
     public class TemplatePrintPageLine
     {
-        private string nombre;
-        private string resultado;
-        private PageLineType tipo;
+        private string _nombre;
+        private string _result;
+        private PageLineType _type;
 
         public string Nombre
         {
-            get =>
-                this.nombre;
-            set
-            {
-                this.nombre = this.nombre + value;
-            }
+            get { return _nombre; } 
+            set { _nombre = _nombre + value; }
         }
 
         public string Resultado
         {
             get =>
-                this.resultado;
+                _result;
             set
             {
-                this.resultado = value;
+                _result = value;
             }
         }
 
         public PageLineType TipoLinea
         {
             get =>
-                this.tipo;
+                _type;
             set
             {
-                this.tipo = value;
+                _type = value;
             }
         }
 

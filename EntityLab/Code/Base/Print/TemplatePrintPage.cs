@@ -1,13 +1,13 @@
 
 using System.Collections.Generic;
 
-namespace Entity.Code.Analysis.Templates.Print
+namespace Entity.Code.Base.Print
 {
     public class TemplatePrintPage
     {
         private Dictionary<int, TemplatePrintPageLine> detalle = new Dictionary<int, TemplatePrintPageLine>();
 
-        public Dictionary<int, TemplatePrintPageLine> Detalles
+        public Dictionary<int, TemplatePrintPageLine> Detail
         {
             get => 
                 this.detalle;

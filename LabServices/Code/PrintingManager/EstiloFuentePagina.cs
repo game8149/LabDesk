@@ -1,8 +1,8 @@
 using System.Drawing;
 
-namespace LogicLab.Code.PrintingManager
+namespace LabServices.Code.PrintingManager
 {
-    public class EstiloFuentePagina
+    public class PageStyleFontResource
     {
         private static Font fontFechaSub = new Font("Calibri", 7.25f, FontStyle.Regular);
         private static Font fontGrupo = new Font("Calibri", 7.45f, FontStyle.Regular);

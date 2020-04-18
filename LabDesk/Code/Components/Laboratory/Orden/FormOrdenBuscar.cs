@@ -53,7 +53,7 @@ namespace LabDesk.Code.Components.Laboratory.Orden
 
         private void ComponenteUI_Click(object sender, EventArgs e)
         {
-            LogicaPaciente paciente = new  LogicaPaciente();
+            PatientBL paciente = new  PatientBL();
             this.tablaPaciente.Clear();
             this.diccionarioPaciente = paciente.ObtenerPerfilPorFiltro(this.CampDni.Text, this.CampHistoria.Text, this.CampNombre.Text, this.Campapellido1erno.Text, this.Campapellido2erno.Text);
             base.SuspendLayout();

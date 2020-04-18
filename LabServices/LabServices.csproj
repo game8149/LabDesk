@@ -35,6 +35,8 @@
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,19 +49,15 @@
     <Compile Include="Code\MedicBL.cs" />
     <Compile Include="Code\PriceListBL.cs" />
     <Compile Include="Code\BLUbicacion.cs" />
-    <Compile Include="Code\LogicaCuenta.cs" />
+    <Compile Include="Code\AccountBL.cs" />
     <Compile Include="Code\ExamResultBL.cs" />
     <Compile Include="Code\ExamOrderBL.cs" />
-    <Compile Include="Code\LogicaPaciente.cs" />
-    <Compile Include="Code\PrintingManager\BufferImpresion.cs" />
-    <Compile Include="Code\PrintingManager\ConstructorFicha.cs" />
-    <Compile Include="Code\PrintingManager\ConstructorFichatest.cs" />
+    <Compile Include="Code\PatientBL.cs" />
+    <Compile Include="Code\PrintingManager\PrintBuffer.cs" />
+    <Compile Include="Code\PrintingManager\SectionBuilder.cs" />
     <Compile Include="Code\PrintingManager\EstiloFuentePagina.cs" />
-    <Compile Include="Code\PrintingManager\Impresora.cs" />
-    <Compile Include="Code\PrintingManager\ImpresoraTest.cs" />
-    <Compile Include="Code\PrintingManager\PaginaTest.cs" />
-    <Compile Include="Code\PrintingManager\Sector.cs" />
-    <Compile Include="Code\PrintingManager\SectorConfiguracion.cs" />
+    <Compile Include="Code\PrintingManager\Printer.cs" />
+    <Compile Include="Code\PrintingManager\Section.cs" />
     <Compile Include="Code\Sesion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +73,10 @@
     <ProjectReference Include="..\EntityLab\Entity.csproj">
       <Project>{D0D482FE-FACB-4106-A8D2-206089B092EE}</Project>
       <Name>Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{6A1FA5B1-21B9-481B-8EFE-7B6CCB765A40}</Project>
+      <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 using System;
 
-namespace Entity.Code.Analysis.Templates.Print
+namespace Entity.Code.Base.Print
 {
     public class TemplatePrintHead
     {

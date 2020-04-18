@@ -11,6 +11,7 @@ namespace Entity.Code.Management
         private string _password = null;
         private string _name = null;
         private string _surname = null;
+        private string _codePersonal = null;
         private string _email = null;
         private string _phone = null;
         private string _validationMessage = null;
@@ -18,6 +19,8 @@ namespace Entity.Code.Management
         [Key]
         public int Id { get; set; }
         public string Tag { get; set; }
+        public DateTime LastLogin { get; set; }
+        public AccountSecurity CurrentSecurity { get; set; }
         public string Password
         {
             get { return _password; }
@@ -26,8 +29,7 @@ namespace Entity.Code.Management
                 _password = value;
                 OnPropertyChanged(nameof(Password));
             }
-        }
-
+        } 
         public string Name
         {
             get { return _name; }
@@ -36,8 +38,7 @@ namespace Entity.Code.Management
                 _name = value;
                 OnPropertyChanged(nameof(Name));
             }
-        }
-
+        } 
         public string Surnames
         {
             get { return _surname; }
@@ -65,6 +66,15 @@ namespace Entity.Code.Management
                 OnPropertyChanged(nameof(Phone));
             }
         }
+        public string PersonalCode
+        {
+            get { return _codePersonal; }
+            set
+            {
+                _codePersonal = value;
+                OnPropertyChanged(nameof(PersonalCode));
+            }
+        } 
         public string ValidationMessage
         {
             get { return _validationMessage; }
@@ -75,9 +85,6 @@ namespace Entity.Code.Management
             }
 
         }
-        public DateTime LastLogin { get; set; }
-
-        public AccountSecurity CurrentSecurity { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

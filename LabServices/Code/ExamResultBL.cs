@@ -9,6 +9,7 @@ namespace LabServices.Code
     public class ExamResultBL
     {
         private ExamResultRepository ExamenResultRepo = new ExamResultRepository();
+        private PriceListBL PriceListLogi = new PriceListBL();
 
         public void GenerarExamenes(ExamOrder orden)
         {
@@ -16,9 +17,9 @@ namespace LabServices.Code
             int key = 0;
             foreach (ExamOrderDetail detalle2 in orden.Items.Values)
             {
-                if (!ExamenResultRepo.ExistenExamenes(detalle2))
+                if (!ExamenResultRepo.Check(detalle2))
                 {
-                    foreach (int num2 in ListaAnalisis.GetInstance().GetAnalisisById(detalle2.IdDataPaquete).PlantillasId)
+                    foreach (int num2 in PriceListLogi.ObtenerPriceListDetalle(detalle2.IdPackage).PlantillasId)
                     {
                         ExamResult examen = new ExamResult
                         {
@@ -30,7 +31,7 @@ namespace LabServices.Code
                             Items = new Dictionary<int, ExamResultDetail>()
                         };
                         int num3 = 0;
-                        foreach (TemplateAsk item in BLPlantilla.GetAllItemsByPlantilla(num2).Values)
+                        foreach (TemplateAsk item in TemplateBL.GetAllItemsByPlantilla(num2).Values)
                         {
                             ExamResultDetail detalle = new ExamResultDetail
                             {
@@ -63,11 +64,11 @@ namespace LabServices.Code
             {
                 if (examenesByOrdenDetalle == null)
                 {
-                    examenesByOrdenDetalle = ExamenResultRepo.GetExamenesByOrdenDetalle(detalle);
+                    examenesByOrdenDetalle = (Dictionary<int,ExamResult>)ExamenResultRepo.Index();
                 }
                 else
                 {
-                    foreach (ExamResult examen in ExamenResultRepo.GetExamenesByOrdenDetalle(detalle).Values)
+                    foreach (ExamResult examen in ExamenResultRepo.Index().Values)
                     {
                         examenesByOrdenDetalle.Add(examen.Id, examen);
                     }

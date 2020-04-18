@@ -4,24 +4,24 @@ using Entity.Code.Analysis.Templates.Print;
 using Entity.Code.Business;
 using Entity.Code.Management;
 using Entity.Code.Static;
-using MinLab.Code.LogicLayer;
+using LabServices.Code.Code.Catalog; 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Text;
-using System.Windows;
-using System.Windows.Media;
+using Utilities.Code;
 using static Entity.Code.Static.DataEstaticaGeneral;
 
 namespace LabServices.Code.PrintingManager
 {
-    public class ConstructorFicha
+    public class SectionBuilder
     {
         private StringBuilder cadena = new StringBuilder();
-        private static ConstructorFicha clasificador;
+        private static SectionBuilder clasificador;
         private Dictionary<Area, List<int>> repositorio;
 
-        private ConstructorFicha()
+        private SectionBuilder()
         {
             this.Inicializar();
         }
@@ -56,7 +56,7 @@ namespace LabServices.Code.PrintingManager
             Clasificador clasificador = new Clasificador();
             tamañoPag.Height /= 2;
             tamañoPag.Width /= 2;
-            Patient pac = new MinLab.Code.LogicLayer.LogicaPaciente.LogicaPaciente().ObtenerPerfilPorId(orden.IdPaciente);
+            Patient pac = new MinLab.Code.LogicLayer.LogicaPaciente.PatientBL().ObtenerPerfilPorId(orden.IdPaciente);
             int id = 0;
             DateTime minValue = DateTime.MinValue;
             foreach (ExamResult examen in examenes.Values)
@@ -72,11 +72,11 @@ namespace LabServices.Code.PrintingManager
             TemplatePrint impresion = new TemplatePrint();
             TemplatePrintHead cabecera = new TemplatePrintHead();
             new Dictionary<int, TemplatePrintPage>();
-            Medico medico = new BLMedico().ObtenerMedico(orden.IdMedico);
-            Account cuenta = new LogicaCuenta().ObtenerCuenta(id);
-            DataEstaticaGeneral.Tiempo edad = Utilidad.CalcularEdad(pac.FechaNacimiento);
-            cabecera.Edad = Utilidad.FormatoEdad(edad);
-            cabecera.Orden = "No " + orden.IdData;
+            Medic medico = new MedicBL().GetMedic(orden.IdMedic);
+            Account cuenta = new AccountBL().GetAccount(id);
+            TimeElapse edad = Utilities.Code.TimeSpan.CalcularEdad(pac.BirthDate);
+            cabecera.Edad = Utilities.Code.TimeSpan.FormatoEdad(edad);
+            cabecera.Orden = "No " + orden.Id;
             string[] textArray1 = new string[] { pac.Names, " ", pac.FirstSurname, " ", pac.LastSurname };
             cabecera.Nombre = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(string.Concat(textArray1));
             cabecera.Historia = pac.HistoryCode;
@@ -96,7 +96,7 @@ namespace LabServices.Code.PrintingManager
                 {
                     pagina = new TemplatePrintPage();
                     dictionary = new Dictionary<int, TemplatePrintPageLine>();
-                    pagina.Detalles = dictionary;
+                    pagina.Detail = dictionary;
                     key = 0;
                     linea = new TemplatePrintPageLine
                     {
@@ -306,17 +306,17 @@ namespace LabServices.Code.PrintingManager
                             }
                         }
                     }
-                    impresion.Paginas.Add(pagina);
+                    impresion.Pages.Add(pagina);
                 }
             }
             return impresion;
         }
 
-        public static ConstructorFicha GetInstance()
+        public static SectionBuilder GetInstance()
         {
             if (clasificador == null)
             {
-                clasificador = new ConstructorFicha();
+                clasificador = new SectionBuilder();
             }
             clasificador.LimpiarRepositorio();
             return clasificador;

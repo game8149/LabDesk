@@ -50,13 +50,13 @@ namespace LabDesk.Code.Components.Main.Panels
             {
                 ordenes.Add((int) row.Cells[0].Value, this.ordenes[(int) row.Cells[0].Value]);
             }
-            new Impresora().ContruirVistaPrevia(ordenes);
+            new Printer().ContruirVistaPrevia(ordenes);
         }
 
         private void CargarDatosEnDGVOrden()
         {
             ExamOrderBL orden = new ExamOrderBL();
-            LogicaPaciente paciente = new LogicaPaciente();
+            PatientBL paciente = new PatientBL();
             this.ordenes = orden.ObtenerOrdenesByFechaByEstado(this.PickerInit.Value, this.PickerEnd.Value, (ExamOrder.DocumentState) this.ComboEstado.SelectedIndex);
             this.tabla.Clear();
             base.SuspendLayout();
@@ -145,7 +145,7 @@ namespace LabDesk.Code.Components.Main.Panels
                 int index = this.DGVOrden.SelectedRows[0].Index;
                 this.DGVOrden.ClearSelection();
                 this.DGVOrden.Rows[index].Selected = true;
-                 LogicaPaciente paciente = new  LogicaPaciente();
+                 PatientBL paciente = new  PatientBL();
                 FormExamenEditor editor1 = new FormExamenEditor {
                     ExamOrder = this.ordenes[Convert.ToInt32(this.DGVOrden.SelectedRows[0].Cells[0].Value)],
                     Paciente = paciente.ObtenerPerfilPorId(this.ordenes[Convert.ToInt32(this.DGVOrden.SelectedRows[0].Cells[0].Value)].IdPaciente)

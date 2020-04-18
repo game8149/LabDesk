@@ -1,9 +1,10 @@
+using LogicLab.Code.PrintingManager;
 using System.Collections.Generic;
 
-namespace MinLab.Code.LogicLayer
+namespace LabServices.Code
 {
 
-    public class BLUbicacion
+    public class LocationBL
     {
         public static Dictionary<int, string> ObtenerListaDistritos()
         {

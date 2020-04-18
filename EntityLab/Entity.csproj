@@ -42,10 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\Analysis\Templates\Print\TemplatePrint.cs" />
-    <Compile Include="Code\Analysis\Templates\Print\TemplatePrintHead.cs" />
-    <Compile Include="Code\Analysis\Templates\Print\TemplatePrintPage.cs" />
-    <Compile Include="Code\Analysis\Templates\Print\TemplatePrintPageLine.cs" />
+    <Compile Include="Code\Base\Print\TemplatePrint.cs" />
+    <Compile Include="Code\Base\Print\TemplatePrintHead.cs" />
+    <Compile Include="Code\Base\Print\TemplatePrintPage.cs" />
+    <Compile Include="Code\Base\Print\TemplatePrintPageLine.cs" />
     <Compile Include="Code\Static\DataEstaticaGeneral.cs" />
     <Compile Include="Code\Business\Medic.cs" />
     <Compile Include="Code\Business\Patient.cs" />
@@ -81,5 +81,6 @@
       <Name>Utilities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
